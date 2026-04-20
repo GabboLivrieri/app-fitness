@@ -15,8 +15,6 @@ export interface Workout{
     name: string;
     userId: string;
     exercises: Exercise[];
-    totalCalories: number;
-    createdAt: Date;
-    updatedAt: Date;
-
+    totalCaloriesBurned: number;
+    createdAt: number;
 }

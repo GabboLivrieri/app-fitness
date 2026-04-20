@@ -1,4 +1,4 @@
-export interface Food {
+export interface Ingredient {
   id: string;
   name: string;
   calories: number;
@@ -8,8 +8,8 @@ export interface Meal {
   id: string;
   name: string;
   userId: string;
-  foods: Food[];
+  ingredients: Ingredient[];
   totalCalories: number;
-  createdAt: Date;
-  updatedAt: Date;
+  description: string;
+  createdAt: number;
 }
