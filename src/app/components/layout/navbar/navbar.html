@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<nav class="navbar">
+
+  <div class="nav-left">
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/workouts">Workout</button>
+    <button mat-button routerLink="/meals">Piatti</button>
+  </div>
+
+  <div class="nav-right">
+      <button mat-button (click)="logout()">Logout</button>
+      <button mat-button routerLink="">Login</button>
+      <button mat-button routerLink="">Sign Up</button>
+  </div>
+
+</nav>

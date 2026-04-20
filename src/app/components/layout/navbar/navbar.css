@@ -1,0 +1,50 @@
+.navbar {
+  width: 100%;
+  box-sizing: border-box; /* 🔥 evita overflow */
+  padding: 10px 15px;
+  background: #1e1e2f;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow-x: hidden; /* sicurezza */
+}
+
+/* gruppi */
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* 🔥 evita uscita */
+}
+
+/* bottoni */
+.navbar button {
+  border-radius: 10px;
+  color: #fff;
+  white-space: nowrap; /* evita rotture brutte */
+}
+
+/* email */
+.user-email {
+  color: #aaa;
+  font-size: 13px;
+  max-width: 150px;       /* 🔥 limite */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* mobile */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-right {
+    justify-content: space-between;
+  }
+}

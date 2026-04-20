@@ -22,7 +22,7 @@ import { NotFound } from './pages/not-found/not-found';
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'Home', pathMatch: 'full'},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home', component: Home},
     { path: 'profile', component: Profile},
 
@@ -40,5 +40,5 @@ export const routes: Routes = [
     { path: 'info', component: Info},
 
     {path: '404', component: NotFound},
-    {path: '**', redirectTo: '404'}
+    //{path: '**', redirectTo: '404'}
 ];
