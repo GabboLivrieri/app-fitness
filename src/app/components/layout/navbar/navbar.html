@@ -7,9 +7,13 @@
   </div>
 
   <div class="nav-right">
+
+    @if (isAuth()) {
       <button mat-button (click)="logout()">Logout</button>
-      <button mat-button routerLink="">Login</button>
-      <button mat-button routerLink="">Sign Up</button>
+    } @else {
+      <button mat-button (click)="openLogin()">Login</button>
+      <button mat-button (click)="openSignup()">Sign Up</button>
+    }
   </div>
 
 </nav>

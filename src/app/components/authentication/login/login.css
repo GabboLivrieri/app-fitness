@@ -1,0 +1,19 @@
+mat-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+
+  margin-top: 8px;
+  padding-bottom: 2px;
+}
+
+.actions button {
+  width: 250px;
+}
