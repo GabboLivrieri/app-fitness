@@ -28,7 +28,7 @@ export class LoginForm {
     private dialogRef: MatDialogRef<LoginForm>
   ) {
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
   }
@@ -64,7 +64,7 @@ export class LoginForm {
   openSignup() {
   this.dialogRef.close();
   this.dialog.open(SignupForm, {
-    width: '400px',
+    width: '500px',
     disableClose: true
   });
 }

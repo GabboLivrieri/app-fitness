@@ -15,14 +15,14 @@ export class Home {
 
   openLogin() {
     this.dialog.open(LoginForm, {
-      width: '400px',
+      width: '500px',
       disableClose: true
     });
   }
 
   openSignup() {
     this.dialog.open(SignupForm, {
-      width: '400px',
+      width: '500px',
       disableClose: true
     });
   }

@@ -43,7 +43,7 @@ export class AuthErrorService {
     const raw =
     err?.error?.error?.message || err?.error?.message || '';
 
-    const code = raw.split(':')[0].replace('auth/', '').trim().toUppercase().replace(/-/g, '_');
+    const code = raw.split(':')[0].replace('auth/', '').trim().toUpperCase().replace(/-/g, '_');
 
     return this.firebaseErrors[code] ?? fallback;
   }
