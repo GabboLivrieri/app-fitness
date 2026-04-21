@@ -1,1 +1,60 @@
-<p>login works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <h2>Accedi</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email"/>
+
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <mat-error>
+          Email non valida
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+
+      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        <mat-error>
+          Minimo 6 caratteri
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid || isLoading"
+      >
+        Accedi
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="openSignup()"
+      >
+        Crea un account
+      </button>
+
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="close()"
+      >
+        Chiudi
+      </button>
+    </div>
+
+    @if (isLoading) {
+      <mat-spinner diameter="30"></mat-spinner>
+    }
+  </mat-card>
+</form>

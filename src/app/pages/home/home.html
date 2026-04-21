@@ -12,8 +12,8 @@
       </p>
 
       <div class="auth-buttons">
-        <button routerLink="/register">Inizia ora</button>
-        <button routerLink="/login" class="secondary">Accedi</button>
+        <button mat-raised-button (click)="openSignup()">Inizia ora</button>
+        <button mat-raised-button (click)="openLogin()">Accedi</button>
       </div>
 
     </div>
@@ -62,7 +62,7 @@
     Inizia subito a migliorare il tuo stile di vita.
   </p>
 
-  <button routerLink="/register">
+  <button mat-raised-button (click)="openSignup()">
     Inizia ora
   </button>
 
