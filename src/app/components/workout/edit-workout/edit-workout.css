@@ -1,0 +1,74 @@
+.w-full {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+/* bottone aggiungi */
+button[type="button"] {
+  align-self: flex-start;
+}
+
+/* lista esercizi */
+mat-list {
+  margin-top: 10px;
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* singolo esercizio */
+mat-list-item {
+  height: auto !important;
+  padding: 10px 0;
+}
+
+/* container interno esercizio */
+mat-list-item > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* nome esercizio */
+mat-list-item span {
+  font-weight: 500;
+  min-width: 140px;
+}
+
+/* input piccoli */
+mat-form-field {
+  margin: 0;
+}
+
+/* campi numerici compatti */
+mat-form-field input {
+  text-align: center;
+}
+
+/* bottone delete */
+button[mat-icon-button] {
+  margin-left: 8px;
+}
+
+/* messaggio vuoto */
+p {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* submit button */
+button[type="submit"] {
+  margin-top: 20px;
+  align-self: flex-end;
+  min-width: 180px;
+}

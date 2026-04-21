@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase-service';
 import { map, Observable } from 'rxjs';
-import { Ingredient, Meal } from '../models/meal-model';
+import {  Meal } from '../models/meal-model';
+import { Ingredient } from '../models/ingredient-model';
 
 @Injectable({
   providedIn: 'root',

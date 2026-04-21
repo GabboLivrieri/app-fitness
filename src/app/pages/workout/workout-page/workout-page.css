@@ -1,0 +1,77 @@
+:host {
+  display: block;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Roboto, sans-serif;
+}
+
+/* Bottone principale */
+button[mat-raised-button] {
+  margin-bottom: 12px;
+}
+
+/* Divider */
+hr {
+  margin: 16px 0;
+  border: none;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+/* Lista workout */
+mat-list {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Singolo item */
+mat-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+/* Hover effetto */
+mat-list-item:hover {
+  background: #f5f5f5;
+}
+
+/* Testo workout */
+mat-list-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+mat-list-item strong {
+  font-size: 16px;
+  color: #222;
+}
+
+mat-list-item div div {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Bottone delete */
+button[mat-icon-button] {
+  transition: transform 0.2s ease;
+}
+
+button[mat-icon-button]:hover {
+  transform: scale(1.1);
+}
+
+/* Stato vuoto */
+p {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 20px;
+}
