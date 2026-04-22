@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginForm } from '../../components/authentication/login/login';
 import { SignupForm } from '../../components/authentication/signup/signup';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
