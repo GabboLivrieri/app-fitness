@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertDialog } from '../../dialogs/alert-dialog/alert-dialog';
 import { AuthErrorService } from '../../../auth/auth-error';
 import { LoginForm } from '../login/login';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +26,7 @@ export class SignupForm {
     private authService: Auth,
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private userService: UserService,
     private authError: AuthErrorService,
     private dialogRef: MatDialogRef<SignupForm>
   ) {
@@ -35,28 +37,52 @@ export class SignupForm {
   }
 
   onSubmit() {
-    if (this.form.invalid) return;
+  if (this.form.invalid) return;
 
-    const { email, password } = this.form.value;
-    this.isLoading = true;
+  const { email, password } = this.form.value;
+  this.isLoading = true;
 
-    this.authService.register(email, password).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.dialogRef.close();
-        this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
+  this.authService.register(email, password).subscribe({
+    next: (res: any) => {
 
-        const data = this.authError.getError(err);
+      const uid = res.localId;
 
-        this.dialog.open(AlertDialog, { data })
-      }
-    });
-  }
+      const userData = {
+        firstName: '',
+        lastName: '',
+        email,
+        age: 0,
+        weight: 0,
+        height: 0,
+        role: 'USER' as const,
+        subscription: 'FREE' as const
+      };
 
+      this.userService.createWithId(uid, userData).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.dialogRef.close();
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+
+          const data = this.authError.getError(err);
+          this.dialog.open(AlertDialog, { data });
+        }
+      });
+
+    },
+    error: (err) => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+
+      const data = this.authError.getError(err);
+      this.dialog.open(AlertDialog, { data });
+    }
+  });
+}
   openLogin() {
   this.dialogRef.close();
   this.dialog.open(LoginForm, {
