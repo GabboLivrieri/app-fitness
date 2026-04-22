@@ -6,14 +6,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from '../../../modules/material-module';
 import { EditWorkout } from '../../../components/workout/edit-workout/edit-workout';
 
-import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
+import { CaloriesPipe } from '../../../pipes/calories-pipe';
+import { CreatedAtFormatPipe } from '../../../pipes/created-at-format-pipe';
+import { CapitalizePipe } from '../../../pipes/capitalize-pipe';
+
+import { DifficultyDirective} from '../../../directives/difficulty-directive';
 
 @Component({
   selector: 'app-workout-detail',
-  imports: [MaterialModule, DatePipe, AsyncPipe],
+  imports: [MaterialModule, AsyncPipe, CaloriesPipe, CreatedAtFormatPipe, CapitalizePipe, DifficultyDirective], 
   templateUrl: './workout-detail.html',
   styleUrl: './workout-detail.css',
 })

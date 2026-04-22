@@ -2,11 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { MaterialModule } from '../../../modules/material-module';
 import { Workout } from '../../../models/workout-model';
-import { DatePipe } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+
+import { CaloriesPipe } from '../../../pipes/calories-pipe';
+import { CreatedAtFormatPipe } from '../../../pipes/created-at-format-pipe';
+import { CapitalizePipe } from '../../../pipes/capitalize-pipe';
+
 @Component({
   selector: 'app-workout-card',
-  imports: [MaterialModule, DatePipe],
+  imports: [MaterialModule, CaloriesPipe, CreatedAtFormatPipe, CapitalizePipe],
   templateUrl: './workout-card.html',
   styleUrl: './workout-card.css',
 })

@@ -3,14 +3,14 @@
   <mat-card class="workout-card">
     <mat-card-header>
       <mat-card-title>
-        {{ workout.name }}
+        {{ workout.name | capitalize}}
       </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <p>Calorie bruciate: {{ workout.totalCaloriesBurned }}</p>
-      <p>Numero esercizi: {{ workout.exercises?.length }}</p>
-      <p>Creato il: {{ workout.createdAt | date:'short' }}</p>
+      <p>Calorie bruciate: {{ workout.totalCaloriesBurned | calories}}</p>
+      <p>Numero esercizi: {{ workout.exercises.length }}</p>
+      <p>Creato il: {{ workout.createdAt | createdAtFormat }}</p>
     </mat-card-content>
 
     <mat-card-actions>

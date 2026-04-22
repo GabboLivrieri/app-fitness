@@ -2,25 +2,25 @@
 <mat-card class="workout-detail-card">
 
   <mat-card-header class="center-header">
-    <mat-card-title>{{ workout.name }}</mat-card-title>
+    <mat-card-title>{{ workout.name | capitalize}}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <div class="stats">
 
       <div class="stat-card">
-        <span class="value">{{ workout.totalCaloriesBurned }}</span>
-        <span class="label">Calorie</span>
+        <span class="value">{{ workout.totalCaloriesBurned | calories}}</span>
+        <span class="label">Calorie bruciate</span>
       </div>
 
       <div class="stat-card">
-        <span class="value">{{ workout.exercises?.length }}</span>
+        <span class="value">{{ workout.exercises.length }}</span>
         <span class="label">Esercizi</span>
       </div>
 
       <div class="stat-card">
-        <span class="value">{{ workout.createdAt | date:'short' }}</span>
-        <span class="label">Creato</span>
+        <span class="value">{{ workout.createdAt | createdAtFormat }}</span>
+        <span class="label">Data creazione</span>
       </div>
 
     </div>
@@ -39,10 +39,11 @@
           <div class="exercise-card">
 
             <div class="exercise-name">
-              {{ ex.name }}
+              <span [appDifficulty]="ex.difficulty"> {{ ex.name | capitalize}}  [{{ ex.muscleGroup }}]</span>
             </div>
 
             <div class="exercise-info">
+              <span>Calorie bruciate: {{ ex.caloriesBurned | calories}}</span>
               <span>Serie: {{ ex.sets }}</span>
               <span>Reps: {{ ex.reps }}</span>
               <span>Recupero: {{ ex.restTime }}s</span>
