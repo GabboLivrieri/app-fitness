@@ -1,1 +1,57 @@
-<p>personal-trainer works!</p>
+<h2>WORKOUTS</h2>
+
+<div class="workouts-container">
+
+  @for (workout of workouts$ | async; track workout.id) {
+
+    <app-workout-card
+      [workout]="workout"
+      (detail)="onWorkoutDetail(workout)">
+    </app-workout-card>
+
+  }
+
+</div>
+
+<h2>PIATTI</h2>
+
+<div class="meals-container">
+
+  @for (meal of meals$ | async; track meal.idMeal) {
+
+    <mat-card class="meal-card">
+
+      <img mat-card-image [src]="meal.strMealThumb">
+
+      <mat-card-header>
+        <mat-card-title>
+          {{ meal.strMeal | capitalize }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ meal.strCategory }} • {{ meal.strArea }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <h3>Ingredienti</h3>
+
+        <p>{{ meal.strIngredient1 | capitalize }} - {{ meal.strMeasure1 }}</p>
+        <p>{{ meal.strIngredient2 | capitalize }} - {{ meal.strMeasure2 }}</p>
+        <p>{{ meal.strIngredient3 | capitalize }} - {{ meal.strMeasure3 }}</p>
+        <p>{{ meal.strIngredient4 | capitalize }} - {{ meal.strMeasure4 }}</p>
+        <p>{{ meal.strIngredient5 | capitalize }} - {{ meal.strMeasure5 }}</p>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="onMealDetail(meal)">
+          Dettaglio
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+
+  }
+
+</div>

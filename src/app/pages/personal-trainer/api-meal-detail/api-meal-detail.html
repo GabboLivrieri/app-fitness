@@ -1,1 +1,37 @@
-<p>api-meal-detail works!</p>
+<div class="card">
+  @if (meal$ | async; as meal) {
+
+    <div class="layout">
+
+      <div class="left">
+        <img [src]="meal.strMealThumb">
+
+        <h3>{{ meal.strMeal | capitalize }}</h3>
+
+        <p class="meta">{{ meal.strCategory }}</p>
+        <p class="meta">{{ meal.strArea }}</p>
+
+        <button mat-stroked-button color="primary" (click)="onBack()">
+          Back
+        </button> 
+      </div>
+
+      <div class="right">
+
+        <h2>Instructions</h2>
+        <p class="instructions">{{ meal.strInstructions }}</p>
+
+        <h2>Ingredients</h2>
+
+        @for (item of ingredients$| async; track item.name) {
+          <p class="ingredient">
+            {{ item.name | capitalize }} - {{ item.measure }}
+          </p>
+        }
+
+      </div>
+
+    </div>
+
+  }
+</div> 

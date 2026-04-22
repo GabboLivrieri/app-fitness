@@ -9,7 +9,7 @@ import { WorkoutDetail } from './pages/workout/workout-detail/workout-detail';
 import { MealPage } from './pages/meal/meal-page/meal-page';
 import { MealDetail } from './pages/meal/meal-detail/meal-detail';
 
-import { PersonalTrainer } from './pages/personal-trainer/personal-trainer/personal-trainer';
+import { PersonalTrainerPage } from './pages/personal-trainer/personal-trainer/personal-trainer';
 import { ApiMealDetail } from './pages/personal-trainer/api-meal-detail/api-meal-detail';
 import { ApiWorkoutDetail } from './pages/personal-trainer/api-workout-detail/api-workout-detail';
 
@@ -17,8 +17,6 @@ import { Support } from './pages/support/support';
 import { Info } from './pages/info/info';
 
 import { NotFound } from './pages/not-found/not-found';
-
-
 
 
 export const routes: Routes = [
@@ -31,8 +29,8 @@ export const routes: Routes = [
 
     { path: 'meals', component: MealPage},
     { path: 'meals/:id', component: MealDetail},
-    { path: 'personalTrainer', component: PersonalTrainer},
 
+    { path: 'personalTrainer', component: PersonalTrainerPage},
     { path: 'personalTrainer/meal/:id', component: ApiMealDetail},
     { path: 'personalTrainer/workout/:id', component: ApiWorkoutDetail},
 
@@ -40,5 +38,5 @@ export const routes: Routes = [
     { path: 'info', component: Info},
 
     {path: '404', component: NotFound},
-    //{path: '**', redirectTo: '404'}
+    {path: '**', redirectTo: '404'}
 ];
