@@ -1,12 +1,10 @@
-@if (workout) {
+@if (workout$ | async; as workout) {
 <mat-card class="workout-detail-card">
 
-  <!-- HEADER CENTRATO -->
   <mat-card-header class="center-header">
     <mat-card-title>{{ workout.name }}</mat-card-title>
   </mat-card-header>
 
-  <!-- MINI CARDS -->
   <mat-card-content>
     <div class="stats">
 
@@ -30,7 +28,6 @@
 
   <mat-divider></mat-divider>
 
-  <!-- ESERCIZI CENTRATI -->
   <div class="exercise-section">
     <h3 class="center-text">Esercizi</h3>
 
@@ -61,7 +58,6 @@
     }
   </div>
 
-  <!-- ACTIONS -->
   <mat-card-actions>
     <button mat-button color="primary" (click)="onEditWorkout(workout)">
       Modifica

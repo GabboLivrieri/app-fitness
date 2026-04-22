@@ -3,23 +3,25 @@
 </button>
 
 <hr />
+@if (workouts$ | async; as workouts) {
 
-@if (workouts.length > 0) {
+  @if (workouts.length > 0) {
 
-  <div class="workouts-container">
-    @for (workout of workouts; track workout.id) {
+    <div class="workouts-container">
+      @for (workout of workouts; track workout.id) {
 
-      <app-workout-card
-        [workout]="workout"
-        [workoutColor]="'#4caf50'"
-        (edit)="onEditWorkout($event)"
-        (detail)="onDetailWorkout($event)"
-        (delete)="deleteWorkout($event.id)">
-      </app-workout-card>
+        <app-workout-card
+          [workout]="workout"
+          (edit)="onEditWorkout($event)"
+          (detail)="onDetailWorkout($event)"
+          (delete)="deleteWorkout($event.id)">
+        </app-workout-card>
 
-    }
-  </div>
+      }
+    </div>
 
-} @else {
-  <p>Nessun workout presente</p>
+  } @else {
+    <p>Nessun workout presente</p>
+  }
+
 }

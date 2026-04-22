@@ -4,22 +4,22 @@ import { Workout } from '../../../models/workout-model';
 import { WorkoutService } from '../../../services/workout-service';
 import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from '../../../modules/material-module';
-import { WorkoutCard } from '../../../components/workout/workout-card/workout-card';
 import { EditWorkout } from '../../../components/workout/edit-workout/edit-workout';
-import { DialogRef } from '@angular/cdk/dialog';
 
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-workout-detail',
-  imports: [MaterialModule, DatePipe],
+  imports: [MaterialModule, DatePipe, AsyncPipe],
   templateUrl: './workout-detail.html',
   styleUrl: './workout-detail.css',
 })
 export class WorkoutDetail implements OnInit {
 
-  workout?: Workout;
+  workout$?: Observable<Workout | undefined>;
 
   constructor(
     private workoutService: WorkoutService,
@@ -40,20 +40,18 @@ export class WorkoutDetail implements OnInit {
       return;
     }
 
-    this.workoutService.getById(id).subscribe(workout => {
-      this.workout = workout;
-    });
+    this.workout$ = this.workoutService.getById(id);
   }
 
   onEditWorkout(workout: Workout) {
-        const dialogRef = this.dialog.open(EditWorkout, {
+    const dialogRef = this.dialog.open(EditWorkout, {
       width: '600px',
       data: workout
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.workout = result
+        this.workout$ = this.workoutService.getById(result.id);
       }
     });
   }
@@ -63,6 +61,7 @@ export class WorkoutDetail implements OnInit {
       this.router.navigate(['/workouts']);
     });
   }
+
   onBack(){
     this.router.navigate(['/workouts']);
   }
