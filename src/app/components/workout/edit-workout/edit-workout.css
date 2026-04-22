@@ -21,6 +21,8 @@ mat-list {
   background: #fafafa;
   border-radius: 12px;
   padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 /* singolo esercizio */

@@ -63,4 +63,7 @@ export class WorkoutDetail implements OnInit {
       this.router.navigate(['/workouts']);
     });
   }
+  onBack(){
+    this.router.navigate(['/workouts']);
+  }
 }

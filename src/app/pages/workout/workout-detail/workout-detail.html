@@ -1,54 +1,68 @@
 @if (workout) {
-<mat-card class="workout-card">
-  <mat-card-header>
+<mat-card class="workout-detail-card">
 
-    <mat-card-title>
-    {{ workout.name }}
-    </mat-card-title>
-
+  <!-- HEADER CENTRATO -->
+  <mat-card-header class="center-header">
+    <mat-card-title>{{ workout.name }}</mat-card-title>
   </mat-card-header>
 
+  <!-- MINI CARDS -->
   <mat-card-content>
-    <p>Calorie bruciate: {{ workout.totalCaloriesBurned }}</p>
-    <p>Numero esercizi: {{ workout.exercises?.length }}</p>
-    <p>Creato il: {{ workout.createdAt | date:'short' }}</p>
+    <div class="stats">
+
+      <div class="stat-card">
+        <span class="value">{{ workout.totalCaloriesBurned }}</span>
+        <span class="label">Calorie</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="value">{{ workout.exercises?.length }}</span>
+        <span class="label">Esercizi</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="value">{{ workout.createdAt | date:'short' }}</span>
+        <span class="label">Creato</span>
+      </div>
+
+    </div>
   </mat-card-content>
 
-    <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-    <h3>Esercizi</h3>
+  <!-- ESERCIZI CENTRATI -->
+  <div class="exercise-section">
+    <h3 class="center-text">Esercizi</h3>
 
     @if (workout.exercises.length > 0) {
 
-      <mat-list>
+      <div class="exercise-list">
 
         @for (ex of workout.exercises; track ex.id) {
-          <mat-list-item>
+          <div class="exercise-card">
 
-            <div class="exercise-item">
-              <div class="exercise-name">
-                <strong>{{ ex.name }}</strong>
-              </div>
-
-              <div class="exercise-details">
-                Serie: {{ ex.sets }} |
-                Ripetizioni: {{ ex.reps }} |
-                Recupero: {{ ex.restTime }}s
-              </div>
+            <div class="exercise-name">
+              {{ ex.name }}
             </div>
 
-          </mat-list-item>
+            <div class="exercise-info">
+              <span>Serie: {{ ex.sets }}</span>
+              <span>Reps: {{ ex.reps }}</span>
+              <span>Recupero: {{ ex.restTime }}s</span>
+            </div>
+
+          </div>
         }
 
-      </mat-list>
+      </div>
 
     } @else {
-      <p>Nessun esercizio presente</p>
+      <p class="empty center-text">Nessun esercizio presente</p>
     }
-    
-  
-  <mat-card-actions>
+  </div>
 
+  <!-- ACTIONS -->
+  <mat-card-actions>
     <button mat-button color="primary" (click)="onEditWorkout(workout)">
       Modifica
     </button>
@@ -56,10 +70,10 @@
     <button mat-button color="warn" (click)="deleteWorkout(workout.id)">
       Elimina
     </button>
+    <button mat-button color="primary" (click)="onBack()">
+      Indietro 
+    </button>
+  </mat-card-actions>
 
-    
-  </mat-card-actions> 
-
-  
 </mat-card>
-} 
+}
