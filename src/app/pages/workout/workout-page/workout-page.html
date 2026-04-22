@@ -1,6 +1,7 @@
 <button mat-raised-button color="primary" (click)="openCreateWorkouts()">
   Nuovo Workout
 </button>
+
 @if (workouts$ | async; as workouts) {
 
   <div class="filters">
@@ -38,28 +39,6 @@
 
   </div>
 
-}
-
-<hr />
-@if (workouts$ | async; as workouts) {
-
-  @if (workouts.length > 0) {
-
-    <div class="workouts-container">
-      @for (workout of workouts; track workout.id) {
-
-        <app-workout-card
-          [workout]="workout"
-          (edit)="onEditWorkout(workout)"
-          (detail)="onDetailWorkout(workout)"
-          (delete)="deleteWorkout(workout.id)">
-        </app-workout-card>
-
-      }
-    </div>
-
-  } @else {
-    <p>Nessun workout presente</p>
-  }
-
+} @else {
+  <p>Nessun workout presente</p>
 }
