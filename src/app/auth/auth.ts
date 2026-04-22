@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -7,8 +9,23 @@ export class Auth {
 
   private apiKey =  "AIzaSyAu7ldXjnhs8ZHHISSzp9TXX2eTmj5rdCY";
   private token: string | null = null;
+  private userId: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+
+    if (this.isBrowser()) {
+      this.token = localStorage.getItem('token');
+      this.userId = localStorage.getItem('userId');
+    }
+  }
+
+  
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
   register(email: string, password: string): Observable<any> {
     return this.http
@@ -19,6 +36,7 @@ export class Auth {
       .pipe(
         tap((res: any) => {
           this.token = res.idToken;
+          this.userId = res.localId;
         })
       );
   }
@@ -32,6 +50,10 @@ export class Auth {
       .pipe(
         tap((res: any) => {
           this.token = res.idToken;
+          this.userId = res.localId;
+
+          localStorage.setItem('token', res.idToken);
+          localStorage.setItem('userId', res.localId);
         })
       );
   }
@@ -46,5 +68,8 @@ export class Auth {
 
   getToken() {
     return this.token;
+  }
+  getUserId(): string | null {
+  return this.userId;
   }
 }

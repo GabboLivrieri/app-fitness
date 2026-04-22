@@ -1,1 +1,90 @@
-<p>profile works!</p>
+@if (loading) {
+  <p>Caricamento profilo...</p>
+} @else {
+
+  <h1>Il mio profilo </h1>
+
+  @if (!editMode) {
+
+    
+    <div class="profile-card">
+
+      <div class="row">
+        <span>Name</span>
+        <div>{{ user.firstName }} {{ user.lastName }}</div>
+      </div>
+
+      <div class="row">
+        <span>Email</span>
+        <div>{{ user.email }}</div>
+      </div>
+
+      <div class="row">
+        <span>Età</span>
+        <div>{{ user.age }}</div>
+      </div>
+
+      <div class="row">
+        <span>Altezza</span>
+        <div>{{ user.height }} cm</div>
+      </div>
+
+      <div class="row">
+        <span>Peso</span>
+        <div>{{ user.weight }} kg</div>
+      </div>
+
+      <div class="row">
+        <span>Ruolo</span>
+        <div>{{ user.role }}</div>
+      </div>
+
+      <div class="row">
+        <span>Abbonamento</span>
+        <div>{{ user.subscription }}</div>
+      </div>
+
+    <div class="row">
+        <span>BMI</span>
+      <div>
+        @if (getBmi() !== null) {
+            {{ getBmi() }}
+        } @else {
+            N/A
+        }
+      </div>
+    </div>
+
+      
+    <button mat-flat-button color="primary" class="pill-btn" (click)="toggleEdit()">
+        Modifica
+    </button>
+      
+
+    </div>
+
+  } @else {
+
+    
+    <div class="profile-card">
+
+      <input [(ngModel)]="user.firstName" placeholder="Nome">
+      <input [(ngModel)]="user.lastName" placeholder="Cognome">
+      <input [(ngModel)]="user.age" type="number" placeholder="Età">
+      <input [(ngModel)]="user.height" type="number" placeholder="Altezza">
+      <input [(ngModel)]="user.weight" type="number" placeholder="Peso">
+
+      <div class="profile-actions">
+        <button mat-raised-button color="primary" (click)="save()">
+          Salva
+        </button>
+        <button mat-raised-button (click)="toggleEdit()">
+          Indietro
+        </button>
+      </div>
+
+    </div>
+
+  }
+
+}

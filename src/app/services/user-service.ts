@@ -12,6 +12,7 @@ export class UserService {
 
   constructor(private firebaseService: FirebaseService) {}
 
+  
   getAll(): Observable<User[]> {
     return this.firebaseService.get<any>(`${this.dbUrl}.json`).pipe(
       map(data => {
@@ -33,8 +34,8 @@ export class UserService {
       }))
     );
   }
-
-  create(userData: {
+  
+  createWithId(userId: string, userData: {
     firstName: string;
     lastName: string;
     email: string;
@@ -45,25 +46,26 @@ export class UserService {
     subscription: 'FREE' | 'PREMIUM';
   }): Observable<User> {
 
-    const newUser = {
-      ...userData,
-    };
-
-    return this.firebaseService.create<any>(`${this.dbUrl}.json`, newUser).pipe(
-      map(response => ({
-        id: response.name,
-        ...newUser
+    return this.firebaseService.update<any>(
+      `${this.dbUrl}/${userId}.json`,
+      userData
+    ).pipe(
+      map(() => ({
+        id: userId,
+        ...userData
       }))
     );
   }
 
+  
   update(user: User): Observable<User> {
     return this.firebaseService.update<any>(
       `${this.dbUrl}/${user.id}.json`,
       user
-    )
+    );
   }
 
+  
   delete(id: string) {
     return this.firebaseService.delete(`${this.dbUrl}/${id}.json`);
   }
