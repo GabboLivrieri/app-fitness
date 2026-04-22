@@ -24,6 +24,9 @@ export class WorkoutPage implements OnInit {
 
     workouts$!: Observable<Workout[]>;
 
+    sortField: 'calories' | 'exercises' = 'calories';
+    sortDirection: 'asc' | 'desc' = 'desc';
+
     constructor (
       private workoutservice: WorkoutService,
       private dialog: MatDialog,
@@ -71,6 +74,32 @@ export class WorkoutPage implements OnInit {
   deleteWorkout(id: string) {
     this.workoutservice.delete(id).subscribe(() => {
       this.loadWorkouts();
+    });
+  }
+  setSortField(field: 'calories' | 'exercises') {
+  this.sortField = field;
+  }
+
+  setSortDirection(direction: 'asc' | 'desc') {
+    this.sortDirection = direction;
+  }
+
+  sortWorkouts(workouts: Workout[]): Workout[] {
+    return [...workouts].sort((a, b) => {
+
+      const aValue =
+        this.sortField === 'calories'
+          ? a.totalCaloriesBurned
+          : (a.exercises?.length ?? 0);
+
+      const bValue =
+        this.sortField === 'calories'
+          ? b.totalCaloriesBurned
+          : (b.exercises?.length ?? 0);
+
+      return this.sortDirection === 'asc'
+        ? aValue - bValue
+        : bValue - aValue;
     });
   }
 }
