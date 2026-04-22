@@ -1,1 +1,27 @@
-<p>workout-page works!</p>
+<button mat-raised-button color="primary" (click)="openCreateWorkouts()">
+  Nuovo Workout
+</button>
+
+<hr />
+@if (workouts$ | async; as workouts) {
+
+  @if (workouts.length > 0) {
+
+    <div class="workouts-container">
+      @for (workout of workouts; track workout.id) {
+
+        <app-workout-card
+          [workout]="workout"
+          (edit)="onEditWorkout($event)"
+          (detail)="onDetailWorkout($event)"
+          (delete)="deleteWorkout($event.id)">
+        </app-workout-card>
+
+      }
+    </div>
+
+  } @else {
+    <p>Nessun workout presente</p>
+  }
+
+}

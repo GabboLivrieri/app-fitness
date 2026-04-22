@@ -1,13 +1,4 @@
-import { MuscleGroup } from "./muscle-group-model";
-export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
-
-export interface Exercise {
-  id: string;
-  name: string;
-  muscleGroup: MuscleGroup;
-  difficulty: Difficulty;
-  caloriesBurned: number;
-}
+import { Exercise } from "./exercise-model";
 
 
 export interface Workout{

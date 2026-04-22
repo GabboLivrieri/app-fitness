@@ -1,8 +1,7 @@
-export enum MuscleGroup {
-  CHEST = 'CHEST',
-  BACK = 'BACK',
-  LEGS = 'LEGS',
-  SHOULDERS = 'SHOULDERS',
-  ARMS = 'ARMS',
-  ABS = 'ABS'
-}
+export type MuscleGroup =
+  | 'PETTO'
+  | 'SCHIENA'
+  | 'GAMBE'
+  | 'SPALLE'
+  | 'BRACCIA'
+  | 'ADDOME';

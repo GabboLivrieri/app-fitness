@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase-service';
 import { map, Observable } from 'rxjs';
-import { Exercise, Workout } from '../models/workout-model';
+import {  Workout } from '../models/workout-model';
+import { Exercise } from '../models/exercise-model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +10,11 @@ import { Exercise, Workout } from '../models/workout-model';
 export class WorkoutService {
 
     private dbUrl = 'https://angular-project-1b5ba-default-rtdb.europe-west1.firebasedatabase.app/workouts';
+    private exercisesUrl ='https://angular-project-1b5ba-default-rtdb.europe-west1.firebasedatabase.app/exercises';
 
     constructor(private firebaseService: FirebaseService) {}
 
-    private calculateTotalCalories(exercises: Exercise[]): number {
+     calculateTotalCalories(exercises: Exercise[]): number {
         return exercises.reduce((total, ex) => {
             return total + ex.caloriesBurned;
         }, 0);
@@ -30,6 +32,19 @@ export class WorkoutService {
             })
         );
     }
+
+    getExercises(): Observable<Exercise[]> {
+        return this.firebaseService.get<any>(`${this.exercisesUrl}.json`).pipe(
+            map(data => {
+                return data
+            ? Object.keys(data).map(key => ({
+                id: key,
+                ...data[key],
+                }))
+            : [];
+        })
+        );
+  }
 
     getById(id: string): Observable<Workout> {
         return this.firebaseService.get<any>(`${this.dbUrl}/${id}.json`).pipe(
@@ -76,4 +91,5 @@ export class WorkoutService {
     delete(id: string) {
         return this.firebaseService.delete(`${this.dbUrl}/${id}.json`);
     }
+
 }
