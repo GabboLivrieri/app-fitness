@@ -1,97 +1,97 @@
-/* container generale */
-.create-meal-container {
-  display: flex;
-  justify-content: center;
-  padding: 24px;
-}
+    /* container generale */
+    .create-meal-container {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
 
-/* card */
-.create-meal-card {
-  width: 100%;
-  max-width: 700px;
-  border-radius: 16px;
-}
+    /* card */
+    .create-meal-card {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 16px;
+    }
 
-/* form */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+    /* form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-/* full width inputs */
-.full-width {
-  width: 100%;
-}
+    /* full width inputs */
+    .full-width {
+      width: 100%;
+    }
 
-/* ===== INGREDIENTS SECTION ===== */
+    /* ===== INGREDIENTS SECTION ===== */
 
-.ingredients-section {
-  margin-top: 10px;
-}
+    .ingredients-section {
+      margin-top: 10px;
+    }
 
-/* header */
-.ingredients-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
+    /* header */
+    .ingredients-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
 
-/* scroll area (FormArray) */
-[formArrayName="ingredients"] {
-  background: #fafafa;
-  border-radius: 12px;
-  padding: 10px;
+    /* scroll area (FormArray) */
+    [formArrayName="ingredients"] {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 10px;
 
-  max-height: 260px;
-  overflow-y: auto;
-}
+      max-height: 260px;
+      overflow-y: auto;
+    }
 
-/* row ingrediente */
-.ingredient-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-}
+    /* row ingrediente */
+    .ingredient-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
 
-/* campi */
-.ingredient-row mat-form-field {
-  flex: 1;
-  margin: 0;
-}
+    /* campi */
+    .ingredient-row mat-form-field {
+      flex: 1;
+      margin: 0;
+    }
 
-/* nome più largo */
-.ingredient-row mat-form-field:first-child {
-  flex: 2;
-}
+    /* nome più largo */
+    .ingredient-row mat-form-field:first-child {
+      flex: 2;
+    }
 
-/* centra input */
-mat-form-field input {
-  text-align: center;
-}
+    /* centra input */
+    mat-form-field input {
+      text-align: center;
+    }
 
-/* bottone delete */
-.ingredient-row button {
-  margin-left: 4px;
-}
+    /* bottone delete */
+    .ingredient-row button {
+      margin-left: 4px;
+    }
 
-/* empty state */
-.empty-msg {
-  text-align: center;
-  color: #888;
-  font-style: italic;
-  margin-top: 10px;
-}
+    /* empty state */
+    .empty-msg {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      margin-top: 10px;
+    }
 
-/* submit */
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
+    /* submit */
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
 
-.actions button {
-  min-width: 180px;
-}
+    .actions button {
+      min-width: 180px;
+    }

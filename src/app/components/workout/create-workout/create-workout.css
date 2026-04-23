@@ -1,4 +1,4 @@
-/* layout generale: sidebar fissa */
+/* layout generale */
 form {
   display: flex;
   flex-direction: column;
@@ -6,10 +6,16 @@ form {
   padding: 16px;
 }
 
-/* input a larghezza piena */
+/* full width */
 .w-full {
   width: 100%;
   margin-bottom: 16px;
+}
+
+/* 🔥 SEARCH INPUT */
+.exercise-search-input {
+  width: 100%;
+  margin-bottom: 8px;
 }
 
 /* bottone aggiungi */
@@ -17,40 +23,46 @@ button[type="button"] {
   align-self: flex-start;
 }
 
-/* 🔥 CONTENITORE LISTA (SCROLL SOLO QUI) */
+/* lista scrollabile */
 mat-list {
   margin-top: 10px;
   background: #fafafa;
   border-radius: 12px;
   padding: 8px;
-
-  /* FIX SIDEBAR + SCROLL */
-  max-height: 260px;     /* circa 3 esercizi */
+  max-height: 260px;
   overflow-y: auto;
 }
 
-/* singolo esercizio */
+/* item */
 mat-list-item {
   height: auto !important;
   padding: 10px 0;
 }
 
-/* contenuto esercizio */
-mat-list-item > div {
+/* 🔥 riga esercizio */
+.exercise-row {
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
 }
 
-/* nome esercizio */
-mat-list-item span {
+/* 🔥 nome */
+.exercise-name {
   font-weight: 500;
   min-width: 140px;
+  flex: 1;
 }
 
-/* form fields compatti */
-mat-list-item mat-form-field {
+/* 🔥 campi piccoli */
+.small-field {
+  width: 70px;
+  margin: 0;
+}
+
+/* 🔥 campo riposo */
+.rest-field {
+  width: 90px;
   margin: 0;
 }
 
@@ -59,12 +71,16 @@ mat-form-field input {
   text-align: center;
 }
 
-/* bottone delete */
+/* delete */
 button[mat-icon-button] {
   margin-left: 8px;
 }
 
-/* messaggio vuoto */
+input[matInput] {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+/* empty */
 p {
   text-align: center;
   color: #888;

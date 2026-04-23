@@ -1,8 +1,10 @@
+/* INPUT FULL WIDTH */
 .w-full {
   width: 100%;
   margin-bottom: 16px;
 }
 
+/* FORM LAYOUT */
 form {
   display: flex;
   flex-direction: column;
@@ -15,13 +17,15 @@ button[type="button"] {
   align-self: flex-start;
 }
 
-/* lista esercizi */
+/* 🔥 CONTENITORE LISTA CON SCROLL BLOCCATO */
 mat-list {
   margin-top: 10px;
   background: #fafafa;
   border-radius: 12px;
   padding: 8px;
-  max-height: 300px;
+
+  /* limita altezza per sidebar */
+  max-height: 260px;
   overflow-y: auto;
 }
 
@@ -31,7 +35,7 @@ mat-list-item {
   padding: 10px 0;
 }
 
-/* container interno esercizio */
+/* contenuto interno item */
 mat-list-item > div {
   display: flex;
   align-items: center;
@@ -45,12 +49,12 @@ mat-list-item span {
   min-width: 140px;
 }
 
-/* input piccoli */
-mat-form-field {
+/* form fields dentro lista */
+mat-list-item mat-form-field {
   margin: 0;
 }
 
-/* campi numerici compatti */
+/* input centrati nei campi */
 mat-form-field input {
   text-align: center;
 }
@@ -60,7 +64,7 @@ button[mat-icon-button] {
   margin-left: 8px;
 }
 
-/* messaggio vuoto */
+/* messaggio lista vuota */
 p {
   text-align: center;
   color: #888;
@@ -68,6 +72,11 @@ p {
   margin-top: 10px;
 }
 
+input[matInput] {
+      width: 100%;
+      margin-bottom: 8px;
+  }
+  
 /* submit button */
 button[type="submit"] {
   margin-top: 20px;
