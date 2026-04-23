@@ -82,3 +82,15 @@ p {
   gap: 16px;
   margin-top: 16px;
 }
+
+.filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filters mat-form-field {
+  min-width: 200px;
+  flex: 1;
+}

@@ -1,56 +1,70 @@
-/* CONTAINER GENERALE */
-.meals-container {
+:host {
+  display: block;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Roboto, sans-serif;
+}
+
+/* Bottone principale */
+button[mat-raised-button] {
+  margin-bottom: 12px;
+}
+
+/* ===== FILTRI ===== */
+
+.filters {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filters mat-form-field {
+  min-width: 200px;
+  flex: 1;
+}
+
+/* ===== GRID MEALS (MATCH WORKOUTS STYLE) ===== */
+
+.meals-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ===== EMPTY STATE (MATCH PARAGRAFO WORKOUT) ===== */
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
   margin-top: 20px;
 }
 
-/* FILTRI */
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 20px 0;
-  flex-wrap: wrap;
+/* ===== UX POLISH (ALLINEATO WORKOUT STYLE) ===== */
+
+/* elimina vecchio mat-list */
+mat-list,
+mat-list-item {
+  display: none;
 }
 
-/* MAT FORM FIELD */
-.filters mat-form-field {
-  min-width: 180px;
-}
-
-/* CARD WRAPPER (se vuoi spacing extra) */
+/* hover cards */
 app-meal-card {
-  display: block;
-  width: 100%;
-  max-width: 320px;
+  transition: transform 0.2s ease;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-
-  .meals-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  app-meal-card {
-    max-width: 100%;
-  }
-
-}
-
-/* BUTTON TOP */
-button[mat-raised-button] {
-  margin: 16px auto;
-  display: block;
-  border-radius: 10px;
-}
-
-/* HOVER CARDS (se vuoi effetto globale) */
 app-meal-card:hover {
-  transform: translateY(-3px);
-  transition: 0.2s ease;
+  transform: scale(1.02);
+}
+
+/* ===== STATS (ADATTATO ALLO STILE GRID DEL TARGET) ===== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
 }

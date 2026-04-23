@@ -7,7 +7,6 @@ import { MaterialModule } from '../../../modules/material-module';
 
 @Component({
   selector: 'app-create-meal',
-  standalone: true, // 🔥 necessario perché usi imports direttamente
   imports: [ReactiveFormsModule, MaterialModule],
   templateUrl: './create-meal.html',
   styleUrl: './create-meal.css',
