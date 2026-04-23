@@ -32,11 +32,11 @@
         [workout]="workout"
         [showImage]="false"
         [showEdit]="true"
-        [showDelete]="true"
         [showDetail]="true"
+        [showDelete]="true"
         (edit)="onEditWorkout(workout)"
         (detail)="onDetailWorkout(workout)"
-        (delete)="deleteWorkout(workout.id)">
+        (delete)="deleteWorkout(workout)">
       </app-workout-card>
 
     }

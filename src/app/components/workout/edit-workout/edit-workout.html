@@ -12,7 +12,6 @@
       class="exercise-search-input"
       placeholder="Cerca esercizio..."
       [formControl]="exerciseSearchControl"
-      (focus)="select.open()"
       (click)="select.open()"
     />
     
@@ -25,7 +24,7 @@
           @for (ex of group.exercises; track ex.id) {
             <mat-option
               [value]="ex"
-              (click)="addExercise(ex)">
+              [appDifficulty]="ex.difficulty">
               {{ ex.name }} - {{ ex.caloriesBurned }} calorie bruciate
             </mat-option>
           }

@@ -14,6 +14,7 @@ import { CreatedAtFormatPipe } from '../../../pipes/created-at-format-pipe';
 import { CapitalizePipe } from '../../../pipes/capitalize-pipe';
 
 import { DifficultyDirective} from '../../../directives/difficulty-directive';
+import { ConfirmDialog } from '../../../components/dialogs/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-workout-detail',
@@ -60,9 +61,17 @@ export class WorkoutDetail implements OnInit {
     });
   }
 
-  deleteWorkout(id: string) {
-    this.workoutService.delete(id).subscribe(() => {
-      this.router.navigate(['/workouts']);
+  deleteWorkout(workout: Workout) {
+    const dialogRef = this.dialog.open( ConfirmDialog, {
+      data: { name: workout.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.workoutService.delete(workout.id).subscribe(() => {
+          this.router.navigate(['/workouts']);
+        });
+      }
     });
   }
 

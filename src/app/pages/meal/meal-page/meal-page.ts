@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,8 @@ import { MealCard } from '../../../components/meal/meal-card/meal-card';
 
 import { MaterialModule } from '../../../modules/material-module';
 import { AsyncPipe } from '@angular/common';
+
+import { ConfirmDialog } from '../../../components/dialogs/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-meal-page',
@@ -30,7 +32,8 @@ export class MealPage implements OnInit {
   constructor(
     private mealService: MealService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -71,9 +74,18 @@ export class MealPage implements OnInit {
     this.router.navigate(['/meals', meal.id]);
   }
 
-  deleteMeal(id: string) {
-    this.mealService.delete(id).subscribe(() => {
-      this.loadMeals();
+  deleteMeal(meal: Meal) {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: { name: meal.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.mealService.delete(meal.id).subscribe(() => {
+          this.loadMeals();
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
 

@@ -6,10 +6,11 @@ import { WorkoutService } from '../../../services/workout-service';
 import { Exercise } from '../../../models/exercise-model';
 
 import { MaterialModule } from '../../../modules/material-module';
+import { DifficultyDirective } from "../../../directives/difficulty-directive";
 
 @Component({
   selector: 'app-create-workout',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, DifficultyDirective],
   templateUrl: './create-workout.html',
   styleUrl: './create-workout.css',
 })

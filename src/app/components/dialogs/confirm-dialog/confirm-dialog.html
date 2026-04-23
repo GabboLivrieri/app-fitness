@@ -1,1 +1,12 @@
-<p>confirm-dialog works!</p>
+<div class="dialog-content">
+<h2 mat-dialog-title>Conferma eliminazione</h2>
+
+<mat-dialog-content>
+  Sei sicuro di voler eliminare {{ data.name }}?
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="close(false)">Annulla</button>
+  <button mat-button color="warn" (click)="close(true)">Conferma</button>
+</mat-dialog-actions>
+</div>
