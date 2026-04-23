@@ -30,6 +30,10 @@
 
       <app-workout-card
         [workout]="workout"
+        [showImage]="false"
+        [showEdit]="true"
+        [showDelete]="true"
+        [showDetail]="true"
         (edit)="onEditWorkout(workout)"
         (detail)="onDetailWorkout(workout)"
         (delete)="deleteWorkout(workout.id)">

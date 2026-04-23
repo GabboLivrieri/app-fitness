@@ -16,7 +16,10 @@ import { CapitalizePipe } from '../../../pipes/capitalize-pipe';
 export class WorkoutCard {
 
   @Input() workout!: Workout;
-  @Input() workoutColor!: string;
+  @Input() showImage = false;
+  @Input() showEdit = true;
+  @Input() showDelete = true;
+  @Input() showDetail = true;
 
   @Output() edit = new EventEmitter<Workout>();
   @Output() detail = new EventEmitter<Workout>();
