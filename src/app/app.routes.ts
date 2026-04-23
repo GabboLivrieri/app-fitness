@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
-import { Home } from './pages/home/home';
+import { authGuard } from './auth/auth-guard';
 
+import { Home } from './pages/home/home';
 import { Profile } from './pages/profile/profile';
 
 import { WorkoutPage } from './pages/workout/workout-page/workout-page';
@@ -16,27 +17,39 @@ import { ApiWorkoutDetail } from './pages/personal-trainer/api-workout-detail/ap
 import { Support } from './pages/support/support';
 import { Info } from './pages/info/info';
 
+import { LoginForm } from './components/authentication/login/login';
+import { SignupForm } from './components/authentication/signup/signup';
+
 import { NotFound } from './pages/not-found/not-found';
 
-
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: 'home', component: Home},
-    { path: 'profile', component: Profile},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-    { path: 'workouts', component: WorkoutPage},
-    { path: 'workouts/:id', component: WorkoutDetail},
+  { path: 'home', component: Home },
+  { path: 'login', component: LoginForm },
+  { path: 'signup', component: SignupForm },
 
-    { path: 'meals', component: MealPage},
-    { path: 'meals/:id', component: MealDetail},
+  {
+    path: '',
+    canActivateChild: [authGuard],
+    children: [
+      { path: 'profile', component: Profile },
 
-    { path: 'personalTrainer', component: PersonalTrainerPage},
-    { path: 'personalTrainer/meal/:id', component: ApiMealDetail},
-    { path: 'personalTrainer/workout/:id', component: ApiWorkoutDetail},
+      { path: 'workouts', component: WorkoutPage },
+      { path: 'workouts/:id', component: WorkoutDetail },
 
-    { path: 'support', component: Support},
-    { path: 'info', component: Info},
+      { path: 'meals', component: MealPage },
+      { path: 'meals/:id', component: MealDetail },
 
-    {path: '404', component: NotFound},
-    {path: '**', redirectTo: '404'}
+      { path: 'personalTrainer', component: PersonalTrainerPage },
+      { path: 'personalTrainer/meal/:id', component: ApiMealDetail },
+      { path: 'personalTrainer/workout/:id', component: ApiWorkoutDetail },
+
+      { path: 'support', component: Support },
+    ]
+  },
+  
+  { path: 'info', component: Info },
+  { path: '404', component: NotFound },
+  { path: '**', redirectTo: '404' }
 ];
