@@ -17,9 +17,15 @@ import { MaterialModule } from '../../../modules/material-module';
 export class EditWorkout {
 
   form: FormGroup;
+
   exercises: Exercise[] = [];
+
   selectedExercises: any[] = [];
+
   groupedExercises: { muscle: string; exercises: Exercise[] }[] = [];
+  visibleGroupedExercises: { muscle: string; exercises: Exercise[] }[] = [];
+
+  exerciseSearchControl = new FormControl('');
 
   readonly dialog = inject(MatDialog);
 
@@ -28,19 +34,25 @@ export class EditWorkout {
     private dialogRef: MatDialogRef<EditWorkout>,
     @Inject(MAT_DIALOG_DATA) public data: Workout
   ) {
+
     this.form = new FormGroup({
       name: new FormControl(data.name, [Validators.required]),
       exerciseSelect: new FormControl(null)
     });
 
-    // preload esercizi già presenti
     this.selectedExercises = data.exercises ? [...data.exercises] : [];
   }
 
   ngOnInit(): void {
     this.workoutService.getExercises().subscribe(exs => {
       this.exercises = exs;
+
       this.groupedExercises = this.groupByMuscle(exs);
+      this.visibleGroupedExercises = [...this.groupedExercises];
+
+      this.exerciseSearchControl.valueChanges.subscribe(value => {
+        this.onExerciseSearch(value || '');
+      });
     });
   }
 
@@ -61,6 +73,28 @@ export class EditWorkout {
       muscle,
       exercises
     }));
+  }
+
+  onExerciseSearch(value: string) {
+    const filter = value.toLowerCase().trim();
+
+    if (!filter) {
+      this.visibleGroupedExercises = [...this.groupedExercises];
+      return;
+    }
+
+    this.visibleGroupedExercises = this.groupedExercises
+      .map(group => {
+        const filtered = group.exercises.filter(ex =>
+          ex.name.toLowerCase().includes(filter)
+        );
+
+        return {
+          muscle: group.muscle,
+          exercises: filtered
+        };
+      })
+      .filter(group => group.exercises.length > 0);
   }
 
   addExercise(exercise: Exercise) {

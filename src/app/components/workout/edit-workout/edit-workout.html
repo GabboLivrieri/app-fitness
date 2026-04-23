@@ -1,98 +1,110 @@
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <!-- NOME WORKOUT -->
-    <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Nome workout</mat-label>
-        <input matInput formControlName="name" />
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Nome workout</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
 
-    <!-- SELECT ESERCIZI CON GRUPPI MUSCOLARI -->
-    <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Seleziona esercizio</mat-label>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Seleziona esercizio</mat-label>
+    <input
+      matInput
+      class="exercise-search-input"
+      placeholder="Cerca esercizio..."
+      [formControl]="exerciseSearchControl"
+      (focus)="select.open()"
+      (click)="select.open()"
+    />
+    
+    <mat-select #select formControlName="exerciseSelect">
 
-        <mat-select formControlName="exerciseSelect">
+      @for (group of visibleGroupedExercises; track group.muscle) {
 
-        <mat-option [value]="null">Nessuno</mat-option>
+        <mat-optgroup [label]="group.muscle">
 
-        @for (group of groupedExercises; track group.muscle) {
+          @for (ex of group.exercises; track ex.id) {
+            <mat-option
+              [value]="ex"
+              (click)="addExercise(ex)">
+              {{ ex.name }} - {{ ex.caloriesBurned }} calorie bruciate
+            </mat-option>
+          }
 
-            <mat-optgroup [label]="group.muscle">
+        </mat-optgroup>
 
-            @for (ex of group.exercises; track ex.id) {
-                <mat-option [value]="ex">
-                {{ ex.name }} - {{ ex.caloriesBurned }} calorie bruciate
-                </mat-option>
-            }
+      }
 
-            </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
 
-        }
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="addExercise(form.get('exerciseSelect')?.value)"
+    [disabled]="!form.get('exerciseSelect')?.value">
 
-        </mat-select>
-    </mat-form-field>
+    Aggiungi esercizio
+  </button>
 
-    <!-- BOTTONE AGGIUNGI -->
-    <button mat-raised-button color="primary" type="button"
-            (click)="addExercise(form.get('exerciseSelect')?.value)">
-        Aggiungi esercizio
-    </button>
+  @if (selectedExercises.length > 0) {
 
-    <!-- LISTA ESERCIZI SELEZIONATI -->
-    @if (selectedExercises.length > 0) {
+    <mat-list>
 
-        <mat-list>
-        @for (ex of selectedExercises; track ex.id) {
-            <mat-list-item>
+      @for (ex of selectedExercises; track ex.id) {
+        <mat-list-item>
 
-            <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+          <div style="display:flex; align-items:center; gap:10px; width:100%;">
 
-                <span style="flex: 1;">{{ ex.name }}</span>
+            <span style="flex:1;">{{ ex.name }}</span>
 
-                <!-- SETS -->
-                <mat-form-field style="width: 70px;">
-                <mat-label>Sets</mat-label>
-                <input matInput type="number"
-                        [value]="ex.sets"
-                        (input)="ex.sets = +$any($event.target).value">
-                </mat-form-field>
+            <mat-form-field style="width:70px;">
+              <mat-label>Sets</mat-label>
+              <input matInput type="number"
+                     [value]="ex.sets"
+                     (input)="ex.sets = +$event.target.value">
+            </mat-form-field>
 
-                <!-- REPS -->
-                <mat-form-field style="width: 70px;">
-                <mat-label>Reps</mat-label>
-                <input matInput type="number"
-                        [value]="ex.reps"
-                        (input)="ex.reps = +$any($event.target).value">
-                </mat-form-field>
+            <mat-form-field style="width:70px;">
+              <mat-label>Reps</mat-label>
+              <input matInput type="number"
+                     [value]="ex.reps"
+                     (input)="ex.reps = +$event.target.value">
+            </mat-form-field>
 
-                <!-- REST -->
-                <mat-form-field style="width: 90px;">
-                <mat-label>Riposo (sec)</mat-label>
-                <input matInput type="number"
-                        [value]="ex.restTime"
-                        (input)="ex.restTime = +$any($event.target).value">
-                </mat-form-field>
+            <mat-form-field style="width:90px;">
+              <mat-label>Riposo</mat-label>
+              <input matInput type="number"
+                     [value]="ex.restTime"
+                     (input)="ex.restTime = +$event.target.value">
+            </mat-form-field>
 
-                <!-- REMOVE -->
-                <button mat-icon-button color="warn"
-                        (click)="removeExercise(ex)">
-                ✕
-                </button>
+            <button
+              type="button"
+              mat-icon-button
+              color="warn"
+              (click)="removeExercise(ex)">
+              <mat-icon fontIcon="delete"></mat-icon>
+            </button>
 
-            </div>
+          </div>
 
-            </mat-list-item>
-        }
-        </mat-list>
+        </mat-list-item>
+      }
 
-    } @else {
-        <p>Nessun esercizio selezionato</p>
-    }
+    </mat-list>
 
-    <!-- SUBMIT -->
-    <button mat-raised-button color="accent"
-            type="submit"
-            [disabled]="!canSave()">
-        Salva modifiche
-    </button>
+  } @else {
+    <p>Nessun esercizio selezionato</p>
+  }
 
-    </form>
+  <button
+    mat-raised-button
+    color="accent"
+    type="submit"
+    [disabled]="!canSave()">
+
+    Salva modifiche
+  </button>
+
+</form>
