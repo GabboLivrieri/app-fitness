@@ -30,68 +30,52 @@
 
 </section>
 
-<hr />
-
 <section class="features">
 
   <h2>Funzionalità</h2>
 
-  <div class="feature-card">
+  <div class="feature-card" [routerLink]="['/workouts']">
 
     <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1" />
 
-    <div class="content"[routerLink]="['/workouts']">
+    <div class="content">
       <h3>Allenamenti personalizzati</h3>
       <p>Crea e modifica i tuoi workout in base ai tuoi obiettivi.</p>
     </div>
 
   </div>
 
-  <div class="feature-card reverse">
+  <div class="feature-card reverse" [routerLink]="['/meals']">
 
     <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061" />
 
-    <div class="content"[routerLink]="['/meals']">
+    <div class="content">
       <h3>Piani alimentari</h3>
       <p>Gestisci la tua dieta e controlla le calorie.</p>
     </div>
 
   </div>
 
-  <div class="feature-card">
+  <div class="feature-card" [routerLink]="['/profile']">
 
     <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74" />
 
-    <div class="content"[routerLink]="['/profile']">
+    <div class="content">
       <h3>Monitoraggio progresso</h3>
       <p>BMI, calorie e obiettivi sempre sotto controllo.</p>
     </div>
 
   </div>
 
-  <div class="feature-card reverse">
+  <div class="feature-card reverse" [routerLink]="['/personalTrainer']">
 
     <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e" />
 
-    <div class="content"[routerLink]="['/personalTrainer']">
+    <div class="content">
       <h3>Personal Trainer</h3>
       <p>Suggerimenti automatici basati sul tuo profilo.</p>
     </div>
 
   </div>
-
-</section>
-
-<hr />
-
-<section class="cta">
-
-  <p>
-    Inizia subito a migliorare il tuo stile di vita.
-  </p>
-
-  <button mat-raised-button (click)="openSignup()">
-    Inizia ora
-  </button>
 
 </section>

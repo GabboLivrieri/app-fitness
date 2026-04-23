@@ -1,6 +1,65 @@
 .footer {
   background: #222;
   color: white;
-  padding: 16px;
+  padding: 25px 16px;
+  margin-top: 40px;
+
+  position: relative;
+}
+
+.footer-left {
   text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: #4caf50;
+}
+
+.copy {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+.footer-right {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.footer-right .title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-right p {
+  margin: 4px 0;
+  opacity: 0.8;
 }

@@ -1,0 +1,31 @@
+.not-found-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.header h1 {
+  color: rgb(50, 66, 209);
+  padding-top: 60px;
+  font-size: 6rem;
+  margin: 0;
+}
+
+.header h2 {
+  color: rgb(50, 66, 209);
+  padding-top: 30px;
+  margin: 10px 0 20px;
+}
+
+.content p {
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.button {
+  margin-top: 20px;
+}
