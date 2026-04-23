@@ -6,6 +6,10 @@
 
     <app-workout-card
       [workout]="workout"
+      [showImage]="true"
+      [showEdit]="false"
+      [showDelete]="false"
+      [showDetail]="true"
       (detail)="onWorkoutDetail(workout)">
     </app-workout-card>
 

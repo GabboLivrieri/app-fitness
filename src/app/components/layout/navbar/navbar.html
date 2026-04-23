@@ -1,10 +1,11 @@
 <nav class="navbar">
 
   <div class="nav-left">
-    <button mat-button routerLink="/">Home</button>
-    <button mat-button routerLink="/workouts">Workout</button>
-    <button mat-button routerLink="/meals">Piatti</button>
-    <button mat-button routerLink="/profile">Il mio profilo</button>
+    <button mat-button [routerLink]="['/']">Home</button>
+    <button mat-button [routerLink]="['/workouts']">Workout</button>
+    <button mat-button [routerLink]="['/meals']">Piatti</button>
+    <button mat-button [routerLink]="['/profile']">Il mio profilo</button>
+    <button mat-button [routerLink]="['/personalTrainer']">Personal trainer</button>
   </div>
 
   <div class="nav-right">
