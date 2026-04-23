@@ -11,6 +11,7 @@ import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../../components/dialogs/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-meal-detail',
@@ -57,9 +58,17 @@ export class MealDetail implements OnInit {
       });
   }
 
-  deleteMeal(id: string){
-    this.mealService.delete(id).subscribe(() => {
-      this.router.navigate(['/meals']);
+  deleteMeal(meal: Meal){
+    const dialogRef = this.dialog.open( ConfirmDialog, {
+      data: { name: meal.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.mealService.delete(meal.id).subscribe(() => {
+          this.router.navigate(['/meals']);
+        });
+      }
     });
   }
 

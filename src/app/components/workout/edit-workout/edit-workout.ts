@@ -7,10 +7,11 @@ import { Exercise } from '../../../models/exercise-model';
 import { Workout } from '../../../models/workout-model';
 
 import { MaterialModule } from '../../../modules/material-module';
+import { DifficultyDirective } from "../../../directives/difficulty-directive";
 
 @Component({
   selector: 'app-edit-workout',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, DifficultyDirective],
   templateUrl: './edit-workout.html',
   styleUrl: './edit-workout.css',
 })

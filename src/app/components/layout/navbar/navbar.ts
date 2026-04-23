@@ -43,9 +43,5 @@ export class Navbar {
   isAuth() {
     return this.authService.isLogged();
   }
-  onProfileClick() {
-  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/profile']);
-  });
-}
+
 }

@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDataService } from '../../../services/api-data-service';
 import { CapitalizePipe } from '../../../pipes/capitalize-pipe';
 import { AsyncPipe } from '@angular/common';
+import { MaterialModule } from '../../../modules/material-module';
 
 @Component({
   selector: 'app-api-meal-detail',
-  imports: [CapitalizePipe, AsyncPipe],
+  imports: [CapitalizePipe, AsyncPipe, MaterialModule],
   templateUrl: './api-meal-detail.html',
   styleUrl: './api-meal-detail.css',
 })

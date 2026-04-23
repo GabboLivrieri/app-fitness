@@ -15,7 +15,6 @@
       class="exercise-search-input"
       placeholder="Cerca esercizio..."
       [formControl]="exerciseSearchControl"
-      (focus)="select.open()"
       (click)="select.open()"
     />
 
@@ -27,7 +26,10 @@
         <mat-optgroup [label]="group.muscle">
 
           @for (ex of group.exercises; track ex.id) {
-            <mat-option [value]="ex">
+            <mat-option 
+              [value]="ex"
+              [appDifficulty]="ex.difficulty"
+            >
               {{ ex.name }} - {{ ex.caloriesBurned }} calorie bruciate
             </mat-option>
           }
@@ -81,7 +83,7 @@
                     mat-icon-button
                     color="warn"
                     (click)="removeExercise(ex)">
-              ✕
+              <mat-icon fontIcon="delete"></mat-icon>
             </button>
 
           </div>

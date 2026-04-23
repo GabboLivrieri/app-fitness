@@ -4,18 +4,31 @@
     <button mat-button [routerLink]="['/']">Home</button>
     <button mat-button [routerLink]="['/workouts']">Workout</button>
     <button mat-button [routerLink]="['/meals']">Piatti</button>
-    <button mat-button [routerLink]="['/profile']">Il mio profilo</button>
     <button mat-button [routerLink]="['/personalTrainer']">Personal trainer</button>
   </div>
 
   <div class="nav-right">
 
     @if (isAuth()) {
-      <button mat-button (click)="logout()">Logout</button>
-    } @else {
-      <button mat-button (click)="openLogin()">Login</button>
-      <button mat-button (click)="openSignup()">Sign Up</button>
-    }
+  <button mat-button [matMenuTriggerFor]="profileMenu">
+    Profilo
+    <mat-icon>person_outline</mat-icon>
+  </button>
+
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/profile']">
+      Vai al profilo
+    </button>
+
+    <button mat-menu-item (click)="logout()">
+        <mat-icon>Logout</mat-icon>
+      Esci
+    </button>
+  </mat-menu>
+} @else {
+  <button mat-button (click)="openLogin()">Accedi</button>
+  <button mat-button (click)="openSignup()">Registrati</button>
+}
   </div>
 
 </nav>

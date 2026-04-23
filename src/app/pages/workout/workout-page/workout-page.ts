@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../../components/dialogs/confirm-dialog/confirm-dialog';
 
 import { Workout } from '../../../models/workout-model';
 import { CreateWorkout } from "../../../components/workout/create-workout/create-workout";
@@ -30,7 +31,8 @@ export class WorkoutPage implements OnInit {
     constructor (
       private workoutservice: WorkoutService,
       private dialog: MatDialog,
-      private router: Router
+      private router: Router, 
+      private cdr: ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -71,11 +73,21 @@ export class WorkoutPage implements OnInit {
     this.router.navigate(['/workouts', workout.id])
   }
 
-  deleteWorkout(id: string) {
-    this.workoutservice.delete(id).subscribe(() => {
-      this.loadWorkouts();
+  deleteWorkout(workout: Workout) {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: { name: workout.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.workoutservice.delete(workout.id).subscribe(() => {
+          this.loadWorkouts();
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
+
   setSortField(field: 'calories' | 'exercises') {
   this.sortField = field;
   }
