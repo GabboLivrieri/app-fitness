@@ -1,21 +1,29 @@
 <section class="hero">
 
-  <div class="hero-content">
+  <div class="hero-container">
 
     <div class="hero-text">
-
-      <h1>La tua Fitness App</h1>
+      <h1>Allenati meglio. <br> Tieni tutto sotto controllo.</h1>
 
       <p>
-        Allenamenti, dieta e progressi in un unico posto.
-        Semplice. Pulito. E sotto controllo.
+        Workout, alimentazione e progressi in un’unica app semplice e veloce.
       </p>
 
-      <div class="auth-buttons">
-        <button mat-raised-button (click)="openSignup()">Inizia ora</button>
-        <button mat-raised-button (click)="openLogin()">Accedi</button>
-      </div>
+      @if (isAuth){
+      
+    }@else {<div class="auth-buttons">
+        <button mat-raised-button color="primary" (click)="openSignup()">
+          Inizia ora
+        </button>
+        <button mat-stroked-button (click)="openLogin()">
+          Accedi
+        </button>
+      </div>}
 
+
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1000&auto=format&fit=crop">
     </div>
 
   </div>
@@ -28,25 +36,45 @@
 
   <h2>Funzionalità</h2>
 
-  <div class="grid">
+  <div class="feature-card">
 
-    <div class="card">
+    <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1" />
+
+    <div class="content"[routerLink]="['/workouts']">
       <h3>Allenamenti personalizzati</h3>
       <p>Crea e modifica i tuoi workout in base ai tuoi obiettivi.</p>
     </div>
 
-    <div class="card">
+  </div>
+
+  <div class="feature-card reverse">
+
+    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061" />
+
+    <div class="content"[routerLink]="['/meals']">
       <h3>Piani alimentari</h3>
       <p>Gestisci la tua dieta e controlla le calorie.</p>
     </div>
 
-    <div class="card">
+  </div>
+
+  <div class="feature-card">
+
+    <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74" />
+
+    <div class="content"[routerLink]="['/profile']">
       <h3>Monitoraggio progresso</h3>
       <p>BMI, calorie e obiettivi sempre sotto controllo.</p>
     </div>
 
-    <div class="card">
-      <h3 [routerLink]="['/personalTrainer']">Personal Trainer</h3>
+  </div>
+
+  <div class="feature-card reverse">
+
+    <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e" />
+
+    <div class="content"[routerLink]="['/personalTrainer']">
+      <h3>Personal Trainer</h3>
       <p>Suggerimenti automatici basati sul tuo profilo.</p>
     </div>
 

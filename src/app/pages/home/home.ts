@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginForm } from '../../components/authentication/login/login';
 import { SignupForm } from '../../components/authentication/signup/signup';
 import { RouterLink } from "@angular/router";
+import { Auth } from '../../auth/auth';
 
 
 @Component({
@@ -11,8 +12,15 @@ import { RouterLink } from "@angular/router";
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
+
+
 export class Home {
-  constructor(private dialog: MatDialog) {}
+
+  isAuth = false;
+
+  constructor(private dialog: MatDialog, private auth: Auth) {
+    this.isAuth = this.auth.isLogged();
+  }
 
   openLogin() {
     this.dialog.open(LoginForm, {
@@ -27,4 +35,8 @@ export class Home {
       disableClose: true
     });
   }
+
+
+
+  
 }
