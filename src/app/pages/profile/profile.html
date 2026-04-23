@@ -2,11 +2,10 @@
   <p>Caricamento profilo...</p>
 } @else {
 
-  <h1>Il mio profilo </h1>
+  <h1>Il mio profilo</h1>
 
   @if (!editMode) {
 
-    
     <div class="profile-card">
 
       <div class="row">
@@ -44,44 +43,65 @@
         <div>{{ user.subscription }}</div>
       </div>
 
-    <div class="row">
+      <div class="row">
         <span>BMI</span>
-      <div>
-        @if (getBmi() !== null) {
+        <div>
+          @if (getBmi() !== null) {
             {{ getBmi() }}
-        } @else {
+          } @else {
             N/A
-        }
+          }
+        </div>
       </div>
-    </div>
 
       
-    <button mat-flat-button color="primary" class="pill-btn" (click)="toggleEdit()">
-        Modifica
-    </button>
+        <button mat-raised-button color="primary" (click)="toggleEdit()">
+          Modifica
+        </button>
       
 
     </div>
 
   } @else {
 
-    
     <div class="profile-card">
 
-      <input [(ngModel)]="user.firstName" placeholder="Nome">
-      <input [(ngModel)]="user.lastName" placeholder="Cognome">
-      <input [(ngModel)]="user.age" type="number" placeholder="Età">
-      <input [(ngModel)]="user.height" type="number" placeholder="Altezza">
-      <input [(ngModel)]="user.weight" type="number" placeholder="Peso">
+      <div class="field">
+        <label>Nome</label>
+        <input [(ngModel)]="user.firstName">
+      </div>
 
-      <div class="profile-actions">
+      <div class="field">
+        <label>Cognome</label>
+        <input [(ngModel)]="user.lastName">
+      </div>
+
+      <div class="field">
+        <label>Età</label>
+        <input [(ngModel)]="user.age" type="number">
+      </div>
+
+      <div class="field">
+        <label>Altezza</label>
+        <input [(ngModel)]="user.height" type="number">
+      </div>
+
+      <div class="field">
+        <label>Peso</label>
+        <input [(ngModel)]="user.weight" type="number">
+      </div>
+
+      
+
         <button mat-raised-button color="primary" (click)="save()">
           Salva
         </button>
+
         <button mat-raised-button (click)="toggleEdit()">
           Indietro
         </button>
-      </div>
+
+      
 
     </div>
 

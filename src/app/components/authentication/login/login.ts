@@ -46,8 +46,6 @@ export class LoginForm {
         this.isLoading = false;
         this.dialogRef.close();
         this.cdr.detectChanges();
-
-        this.router.navigate(['/home']);
       },
 
       error: (err) => {
