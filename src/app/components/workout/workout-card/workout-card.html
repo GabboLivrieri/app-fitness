@@ -7,6 +7,10 @@
       </mat-card-title>
     </mat-card-header>
 
+    @if (showImage && workout.image) {
+      <img mat-card-image [src]="workout.image" alt="Workout image">
+    }
+
     <mat-card-content>
       <p>Calorie bruciate: {{ workout.totalCaloriesBurned | calories}}</p>
       <p>Numero esercizi: {{ workout.exercises.length }}</p>
@@ -14,17 +18,25 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-button color="primary" (click)="onDetail()">
-        Dettaglio
-      </button>
 
-      <button mat-button color="primary" (click)="onEdit()">
-        Modifica
-      </button>
+      @if (showDetail) {
+        <button mat-button color="primary" (click)="onDetail()">
+          Dettaglio
+        </button>
+      }
 
-      <button mat-button color="warn" (click)="onDelete()">
-        Elimina
-      </button>
+      @if (showEdit) {
+        <button mat-button color="primary" (click)="onEdit()">
+          Modifica
+        </button>
+      }
+
+      @if (showEdit) {
+        <button mat-button color="primary" (click)="onEdit()">
+          Modifica
+        </button>
+      }
+      
     </mat-card-actions>
   </mat-card>
 
