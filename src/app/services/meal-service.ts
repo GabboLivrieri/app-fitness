@@ -8,11 +8,12 @@ import { Ingredient } from '../models/ingredient-model';
   providedIn: 'root',
 })
 export class MealService {
+ 
   private dbUrl = 'https://angular-project-1b5ba-default-rtdb.europe-west1.firebasedatabase.app/meals';
 
   constructor(private firebaseService: FirebaseService) {}
 
-  // 🔥 CALCOLO AUTOMATICO CALORIE
+ 
   private calculateTotalCalories(ingredients: Ingredient[]): number {
     return ingredients.reduce((total, ingredient) => {
       return total + ingredient.calories;
@@ -32,6 +33,7 @@ export class MealService {
     );
   }
 
+
   getById(id: string): Observable<Meal> {
     return this.firebaseService.get<any>(`${this.dbUrl}/${id}.json`).pipe(
       map(data => ({
@@ -45,12 +47,12 @@ export class MealService {
     name: string;
     userId: string;
     ingredients: Ingredient[];
-    description: string;
+    description?: string;
   }): Observable<Meal> {
 
     const newMeal = {
       ...mealData,
-      totalCalories: this.calculateTotalCalories(mealData.ingredients),
+      totalCalories: this.calculateTotalCalories(mealData.ingredients || []),
       createdAt: Date.now(),
     };
 
@@ -62,11 +64,11 @@ export class MealService {
     );
   }
 
-  update(meal: Meal): Observable<Meal> {
+  update(meal: Meal): Observable<void> {
     //Riconta le calorie in caso di modifica ingredienti
     const updatedMeal = {
       ...meal,
-      totalCalories: this.calculateTotalCalories(meal.ingredients)
+      totalCalories: this.calculateTotalCalories(meal.ingredients || [])
     };
 
     return this.firebaseService.update<any>(

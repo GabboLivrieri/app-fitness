@@ -1,1 +1,89 @@
-<p>edit-meal works!</p>
+<div class="create-meal-container">
+
+  <mat-card class="create-meal-card">
+
+    <mat-card-header>
+      <mat-card-title>
+        Modifica meal
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome meal</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <br/>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descrizione</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <div class="ingredients-section">
+
+          <div class="ingredients-header">
+            <h3>Ingredienti</h3>
+
+            <button mat-raised-button color="primary" type="button"
+                    (click)="addIngredient()">
+              + Aggiungi ingrediente
+            </button>
+          </div>
+
+          <div formArrayName="ingredients">
+
+            @for (ingredient of ingredients.controls; track $index) {
+
+              <div [formGroupName]="$index" class="ingredient-row">
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Calorie</mat-label>
+                  <input matInput type="number" formControlName="calories">
+                </mat-form-field>
+
+                <button mat-icon-button color="warn"
+                        type="button"
+                        (click)="removeIngredient($index)">
+                  ✖
+                </button>
+
+              </div>
+
+            }
+
+            @if (ingredients.length === 0) {
+              <p class="empty-msg">
+                Nessun ingrediente presente
+              </p>
+            }
+
+          </div>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="actions">
+          <button mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="!canSave()">
+            Salva modifiche
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

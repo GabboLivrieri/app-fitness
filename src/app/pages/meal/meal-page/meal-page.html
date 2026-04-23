@@ -1,1 +1,44 @@
-<p>meal-page works!</p>
+<button mat-raised-button color="primary" (click)="openCreateMeal()">
+  Nuovo Pasto
+</button>
+
+@if (meals$ | async; as meals) {
+
+  <div class="filters">
+
+    <mat-form-field>
+      <mat-label>Ordina per</mat-label>
+      <mat-select (selectionChange)="setSortField($event.value)">
+        <mat-option value="calories">Calorie</mat-option>
+        <mat-option value="ingredients">Ingredienti</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Direzione</mat-label>
+      <mat-select (selectionChange)="setSortDirection($event.value)">
+        <mat-option value="asc">Crescente</mat-option>
+        <mat-option value="desc">Decrescente</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="meals-container">
+
+    @for (meal of sortMeals(meals); track meal.id) {
+
+      <app-meal-card
+        [meal]="meal"
+        (edit)="onEditMeal(meal)"
+        (detail)="onDetailMeal(meal)"
+        (delete)="deleteMeal(meal.id)">
+      </app-meal-card>
+
+    }
+
+  </div>
+
+} @else {
+  <p class="empty">Nessun pasto presente</p>
+}

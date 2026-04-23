@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Roboto, sans-serif;
+}
+
+/* Bottone principale */
+button[mat-raised-button] {
+  margin-bottom: 12px;
+}
+
+/* ===== FILTRI ===== */
+
+.filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filters mat-form-field {
+  min-width: 200px;
+  flex: 1;
+}
+
+/* ===== GRID MEALS (MATCH WORKOUTS STYLE) ===== */
+
+.meals-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ===== EMPTY STATE (MATCH PARAGRAFO WORKOUT) ===== */
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* ===== UX POLISH (ALLINEATO WORKOUT STYLE) ===== */
+
+/* elimina vecchio mat-list */
+mat-list,
+mat-list-item {
+  display: none;
+}
+
+/* hover cards */
+app-meal-card {
+  transition: transform 0.2s ease;
+}
+
+app-meal-card:hover {
+  transform: scale(1.02);
+}
+
+/* ===== STATS (ADATTATO ALLO STILE GRID DEL TARGET) ===== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}

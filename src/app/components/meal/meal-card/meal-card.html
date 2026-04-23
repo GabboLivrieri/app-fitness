@@ -1,1 +1,35 @@
-<p>meal-card works!</p>
+<div class="meal-container">
+
+  <mat-card class="meal-card">
+
+    <mat-card-header>
+      <mat-card-title>
+        {{ meal.name | capitalize }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>Calorie totali: {{ meal.totalCalories | calories }}</p>
+      <p>Numero ingredienti: {{ meal.ingredients.length }}</p>
+      <p>Creato il: {{ meal.createdAt | createdAtFormat }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+
+      <button mat-button color="primary" (click)="onDetail()">
+        Dettaglio
+      </button>
+
+      <button mat-button color="primary" (click)="onEdit()">
+        Modifica
+      </button>
+
+      <button mat-button color="warn" (click)="onDelete()">
+        Elimina
+      </button>
+
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>

@@ -1,4 +1,4 @@
-  import { Component, inject } from '@angular/core';
+  import { Component, inject, OnInit } from '@angular/core';
 
   import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@
     templateUrl: './create-workout.html',
     styleUrl: './create-workout.css',
   })
-  export class CreateWorkout {
+  export class CreateWorkout implements OnInit{
 
       form: FormGroup;
       exercises: Exercise[] = [];
@@ -67,9 +67,9 @@
         if (!exists) {
           this.selectedExercises.push({
             ...exercise,
-            sets: 3,       // 🔥 default
-            reps: 10,      // 🔥 default
-            restTime: 60   // 🔥 default (secondi)
+            sets: 3,       
+            reps: 10,      
+            restTime: 60   
           });
         }
 
