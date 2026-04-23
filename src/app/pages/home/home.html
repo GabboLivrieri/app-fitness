@@ -9,16 +9,16 @@
         Workout, alimentazione e progressi in un’unica app semplice e veloce.
       </p>
 
-      @if (isAuth){
-      
-    }@else {<div class="auth-buttons">
+      @if (isAuth){}
+      @else {<div class="auth-buttons">
         <button mat-raised-button color="primary" (click)="openSignup()">
           Inizia ora
         </button>
         <button mat-stroked-button (click)="openLogin()">
           Accedi
         </button>
-      </div>}
+      </div>
+    }
 
 
     </div>

@@ -59,11 +59,17 @@ export class Auth {
   }
 
   logout() {
-    this.token = null;
+  this.token = null;
+  this.userId = null;
+
+  if (this.isBrowser()) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    }
   }
 
   isLogged(): boolean {
-    return this.token !== null;
+  return !!this.token;
   }
 
   getToken() {
