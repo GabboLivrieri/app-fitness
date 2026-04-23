@@ -1,9 +1,107 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+
+import { Meal } from '../../../models/meal-model';
+import { MealService } from '../../../services/meal-service';
+
+import { CreateMeal } from '../../../components/meal/create-meal/create-meal';
+import { EditMeal } from '../../../components/meal/edit-meal/edit-meal';
+import { MealCard } from '../../../components/meal/meal-card/meal-card';
+
+import { MaterialModule } from '../../../modules/material-module';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-meal-page',
-  imports: [],
+  imports: [MaterialModule, MealCard, AsyncPipe],
   templateUrl: './meal-page.html',
   styleUrl: './meal-page.css',
 })
-export class MealPage {}
+export class MealPage implements OnInit {
+
+  meals$!: Observable<Meal[]>;
+
+  sortField: 'calories' | 'ingredients' = 'calories';
+  sortDirection: 'asc' | 'desc' = 'desc';
+
+  constructor(
+    private mealService: MealService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadMeals();
+  }
+
+
+  loadMeals() {
+    this.meals$ = this.mealService.getAll();
+  }
+
+  openCreateMeal() {
+    const dialogRef = this.dialog.open(CreateMeal, {
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadMeals();
+      }
+    });
+  }
+
+  onEditMeal(meal: Meal) {
+    const dialogRef = this.dialog.open(EditMeal, {
+      width: '600px',
+      data: meal
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadMeals();
+      }
+    });
+  }
+
+  onDetailMeal(meal: Meal) {
+    this.router.navigate(['/meals', meal.id]);
+  }
+
+  deleteMeal(id: string) {
+    this.mealService.delete(id).subscribe(() => {
+      this.loadMeals();
+    });
+  }
+
+
+  setSortField(field: 'calories' | 'ingredients') {
+    this.sortField = field;
+  }
+
+  setSortDirection(direction: 'asc' | 'desc') {
+    this.sortDirection = direction;
+  }
+
+  sortMeals(meals: Meal[]): Meal[] {
+    return [...meals].sort((a, b) => {
+
+      const aValue =
+        this.sortField === 'calories'
+          ? (a.totalCalories ?? 0)
+          : (a.ingredients?.length ?? 0);
+
+      const bValue =
+        this.sortField === 'calories'
+          ? (b.totalCalories ?? 0)
+          : (b.ingredients?.length ?? 0);
+
+      return this.sortDirection === 'asc'
+        ? aValue - bValue
+        : bValue - aValue;
+    });
+  }
+}

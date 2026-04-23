@@ -1,1 +1,96 @@
-<p>create-meal works!</p>
+<div class="create-meal-container">
+
+  <mat-card class="create-meal-card">
+
+    <mat-card-header>
+      <mat-card-title>
+        Crea nuovo meal
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <!-- FORM -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- NAME -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome meal</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <!-- DESCRIPTION -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descrizione</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <!-- INGREDIENTS SECTION -->
+        <div class="ingredients-section">
+
+          <div class="ingredients-header">
+            <h3>Ingredienti</h3>
+
+            <button mat-raised-button color="primary" type="button"
+                    (click)="addIngredient()">
+              + Aggiungi ingrediente
+            </button>
+          </div>
+
+          <!-- LISTA INGREDIENTI -->
+          <div formArrayName="ingredients">
+
+            @for (ingredient of ingredientsArray.controls; track $index) {
+
+              <div [formGroupName]="$index" class="ingredient-row">
+
+                <!-- NAME -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+
+                <!-- CALORIES -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Calorie</mat-label>
+                  <input matInput type="number" formControlName="calories">
+                </mat-form-field>
+
+                <!-- REMOVE -->
+                <button mat-icon-button color="warn"
+                        type="button"
+                        (click)="removeIngredient($index)">
+                  ✖
+                </button>
+
+              </div>
+
+            }
+
+            @if (ingredientsArray.length === 0) {
+              <p class="empty-msg">
+                Nessun ingrediente aggiunto
+              </p>
+            }
+
+          </div>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="actions">
+          <button mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="!canSave()">
+            Salva meal
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

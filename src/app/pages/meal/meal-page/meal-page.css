@@ -1,0 +1,56 @@
+/* CONTAINER GENERALE */
+.meals-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* FILTRI */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* MAT FORM FIELD */
+.filters mat-form-field {
+  min-width: 180px;
+}
+
+/* CARD WRAPPER (se vuoi spacing extra) */
+app-meal-card {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+
+  .meals-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  app-meal-card {
+    max-width: 100%;
+  }
+
+}
+
+/* BUTTON TOP */
+button[mat-raised-button] {
+  margin: 16px auto;
+  display: block;
+  border-radius: 10px;
+}
+
+/* HOVER CARDS (se vuoi effetto globale) */
+app-meal-card:hover {
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+}

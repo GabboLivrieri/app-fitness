@@ -6,6 +6,6 @@ export interface Meal {
   userId: string;
   ingredients: Ingredient[];
   totalCalories: number;
-  description: string;
+  description?: string;
   createdAt: number;
 }
