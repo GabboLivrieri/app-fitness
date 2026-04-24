@@ -63,7 +63,9 @@ export class WorkoutDetail implements OnInit {
 
   deleteWorkout(workout: Workout) {
     const dialogRef = this.dialog.open( ConfirmDialog, {
-      data: { name: workout.name}
+      data: { 
+        title: 'Conferma eliminazione',
+        message: `Sei sicuro di voler eliminare ${workout.name}?`}
     });
 
     dialogRef.afterClosed().subscribe(result => {

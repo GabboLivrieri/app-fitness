@@ -60,7 +60,9 @@ export class MealDetail implements OnInit {
 
   deleteMeal(meal: Meal){
     const dialogRef = this.dialog.open( ConfirmDialog, {
-      data: { name: meal.name}
+      data: { 
+        title: 'Conferma eliminazione',
+        message: `Sei sicuro di voler eliminare ${meal.name}?`}
     });
 
     dialogRef.afterClosed().subscribe(result => {

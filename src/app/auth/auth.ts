@@ -37,6 +37,8 @@ export class Auth {
         tap((res: any) => {
           this.token = res.idToken;
           this.userId = res.localId;
+          localStorage.setItem('token', res.idToken);
+          localStorage.setItem('userId', res.localId);
         })
       );
   }

@@ -16,7 +16,7 @@ import { MaterialModule } from '../../../modules/material-module';
 })
 export class ConfirmDialog {
   readonly dialogRef = inject(MatDialogRef<ConfirmDialog>);
-  readonly data = inject<{ name: string }>(MAT_DIALOG_DATA);
+  readonly data = inject<{title: string, message: string }>(MAT_DIALOG_DATA);
 
   close(result: boolean) {
     this.dialogRef.close(result);

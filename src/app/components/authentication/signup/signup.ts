@@ -63,6 +63,7 @@ export class SignupForm {
           this.isLoading = false;
           this.dialogRef.close();
           this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (err) => {
           this.isLoading = false;
