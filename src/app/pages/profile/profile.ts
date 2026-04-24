@@ -4,9 +4,10 @@ import { UserService } from '../../services/user-service';
 import { User } from '../../models/user-model';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../auth/auth';
-import { Router } from '@angular/router';
 import { GoalService } from '../../services/goal-service';
 import { Goal } from '../../models/goal-model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../components/dialogs/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-profile',
@@ -29,9 +30,9 @@ export class Profile implements OnInit {
   constructor(
     private userService: UserService,
     private auth: Auth,
-    private router: Router,
     private cdr: ChangeDetectorRef,
-    private goalService: GoalService
+    private goalService: GoalService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -100,5 +101,25 @@ export class Profile implements OnInit {
     if (!this.user?.weight || !this.user?.height) return null;
     const heightInMeters = this.user.height / 100;
     return +(this.user.weight / (heightInMeters * heightInMeters)).toFixed(1);
+  }
+
+  deleteSubscription() {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: {
+        title: 'Disdici abbonamento',
+        message: `Sei sicuro di voler disdire l'abbonamento? Tornerai al piano Free`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.cancelSubscription(this.user.id)
+          .subscribe(updatedUser => {
+            this.user.subscription = updatedUser.subscription;
+
+            this.cdr.detectChanges();
+          });
+      }
+    });
   }
 }

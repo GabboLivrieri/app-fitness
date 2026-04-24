@@ -69,4 +69,16 @@ export class UserService {
   delete(id: string) {
     return this.firebaseService.delete(`${this.dbUrl}/${id}.json`);
   }
+
+  cancelSubscription(userId: string): Observable<User> {
+    return this.firebaseService.update<any>(
+      `${this.dbUrl}/${userId}.json`,
+      { subscription: 'FREE' }
+    ).pipe(
+      map(() => ({
+        id: userId,
+        subscription: 'FREE'
+      } as User))
+    );
+  }
 }
