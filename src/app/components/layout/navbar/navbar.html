@@ -1,11 +1,26 @@
 <nav class="navbar">
 
   <div class="nav-left">
-    <button mat-button [routerLink]="['/']">Home</button>
-    <button mat-button [routerLink]="['/workouts']">Workout</button>
-    <button mat-button [routerLink]="['/meals']">Piatti</button>
-    <button mat-button [routerLink]="['/personalTrainer']">Personal trainer</button>
-    <button mat-button [routerLink]="['/support']">Support</button>
+    <button mat-button [routerLink]="['/']">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+    <button mat-button [routerLink]="['/workouts']">
+      <mat-icon>fitness_center</mat-icon>
+      Workout
+    </button>
+    <button mat-button [routerLink]="['/meals']">
+      <mat-icon>restaurant</mat-icon>
+      Piatti
+    </button>
+    <button mat-button [routerLink]="['/personalTrainer']">
+      <mat-icon>sports_gymnastics</mat-icon>
+      Personal trainer
+    </button>
+    <button mat-button [routerLink]="['/support']">
+      <mat-icon>confirmation_number</mat-icon>
+      Support
+    </button>
   </div>
 
   <div class="nav-right">
@@ -38,6 +53,11 @@
       <button mat-button (click)="openLogin()">Accedi</button>
       <button mat-button (click)="openSignup()">Registrati</button>
     }
+    
+    <button mat-button [routerLink]="['/info']">
+      <mat-icon>info</mat-icon>
+      Info
+    </button>
 
   </div>
 
