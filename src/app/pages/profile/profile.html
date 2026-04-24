@@ -2,109 +2,145 @@
   <p>Caricamento profilo...</p>
 } @else {
 
-  <h1>Il mio profilo</h1>
-
-  @if (!editMode) {
-
-    <div class="profile-card">
-
-      <div class="row">
-        <span>Name</span>
-        <div>{{ user.firstName }} {{ user.lastName }}</div>
+  <section class="profile-hero">
+    <div class="profile-hero-container">
+      <div class="profile-hero-text">
+        <h1>Il mio profilo</h1>
+        <p>Gestisci i tuoi dati, monitora il BMI e tieni traccia dei tuoi obiettivi.</p>
       </div>
+    </div>
+  </section>
 
-      <div class="row">
-        <span>Email</span>
-        <div>{{ user.email }}</div>
-      </div>
+  <section class="profile-section">
 
-      <div class="row">
-        <span>Età</span>
-        <div>{{ user.age }}</div>
-      </div>
-
-      <div class="row">
-        <span>Altezza</span>
-        <div>{{ user.height }} cm</div>
-      </div>
-
-      <div class="row">
-        <span>Peso</span>
-        <div>{{ user.weight }} kg</div>
-      </div>
-
-      <div class="row">
-        <span>Ruolo</span>
-        <div>{{ user.role }}</div>
-      </div>
-
-      <div class="row">
-        <span>Abbonamento</span>
-        <div>{{ user.subscription }}</div>
-      </div>
-
-      <div class="row">
-        <span>BMI</span>
-        <div>
-          @if (getBmi() !== null) {
-            {{ getBmi() }}
-          } @else {
-            N/A
-          }
+    @if (!editMode) {
+      <div class="profile-card">
+        <div class="row"><span>Nome</span><div>{{ user.firstName }} {{ user.lastName }}</div></div>
+        <div class="row"><span>Email</span><div>{{ user.email }}</div></div>
+        <div class="row"><span>Età</span><div>{{ user.age }}</div></div>
+        <div class="row"><span>Altezza</span><div>{{ user.height }} cm</div></div>
+        <div class="row"><span>Peso</span><div>{{ user.weight }} kg</div></div>
+        <div class="row"><span>Ruolo</span><div>{{ user.role }}</div></div>
+        <div class="row"><span>Abbonamento</span><div>{{ user.subscription }}</div></div>
+        <div class="row">
+          <span>BMI</span>
+          <div>{{ getBmi() !== null ? getBmi() : 'N/A' }}</div>
+        </div>
+        <div class="card-actions">
+          <button mat-raised-button color="primary" (click)="toggleEdit()">
+            <mat-icon>edit</mat-icon> Modifica
+          </button>
         </div>
       </div>
+    } @else {
+      <div class="profile-card">
+        <div class="field"><label>Nome</label><input [(ngModel)]="user.firstName"></div>
+        <div class="field"><label>Cognome</label><input [(ngModel)]="user.lastName"></div>
+        <div class="field"><label>Età</label><input [(ngModel)]="user.age" type="number"></div>
+        <div class="field"><label>Altezza</label><input [(ngModel)]="user.height" type="number"></div>
+        <div class="field"><label>Peso</label><input [(ngModel)]="user.weight" type="number"></div>
+        <div class="card-actions">
+          <button mat-raised-button color="primary" (click)="save()">
+            <mat-icon>save</mat-icon> Salva
+          </button>
+          <button mat-stroked-button (click)="toggleEdit()">
+            <mat-icon>arrow_back</mat-icon> Indietro
+          </button>
+        </div>
+      </div>
+    }
 
-      
-        <button mat-raised-button color="primary" (click)="toggleEdit()">
-          Modifica
+    
+    <div class="goals-section">
+
+      <div class="goals-header">
+        <h2>Obiettivi</h2>
+        <button mat-raised-button color="primary" (click)="showNewGoal = !showNewGoal">
+          <mat-icon>{{ showNewGoal ? 'close' : 'add' }}</mat-icon>
+          {{ showNewGoal ? 'Annulla' : 'Nuovo obiettivo' }}
         </button>
-      
+      </div>
+
+      @if (showNewGoal) {
+        <div class="new-goal-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Titolo</mat-label>
+            <input matInput [(ngModel)]="newGoal.title">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Descrizione</mat-label>
+            <textarea matInput [(ngModel)]="newGoal.description" rows="2"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Scadenza</mat-label>
+            <input matInput type="date" [(ngModel)]="newGoal.deadline">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Categoria</mat-label>
+            <mat-select [(ngModel)]="newGoal.category">
+              <mat-option value="PESO">Peso</mat-option>
+              <mat-option value="ALLENAMENTO">Allenamento</mat-option>
+              <mat-option value="ALIMENTAZIONE">Alimentazione</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" (click)="addGoal()" [disabled]="!newGoal.title">
+            Aggiungi
+          </button>
+        </div>
+      }
+
+      @if (goals.length === 0 && !showNewGoal) {
+        <p class="empty">Nessun obiettivo attivo. Aggiungine uno!</p>
+      }
+
+      <div class="goal-list">
+        @for (goal of goals; track goal.id) {
+          <div class="goal-item">
+            <mat-checkbox (change)="completeGoal(goal)"></mat-checkbox>
+            <div class="goal-content">
+              <span class="goal-title">{{ goal.title }}</span>
+              <span class="goal-desc">{{ goal.description }}</span>
+              <div class="goal-meta">
+                <span class="category-badge">{{ goal.category }}</span>
+                @if (goal.deadline) {
+                  <span class="deadline">{{ goal.deadline }}</span>
+                }
+              </div>
+            </div>
+            <button mat-icon-button color="warn" (click)="deleteGoal(goal)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
+
+      @if (completedGoals.length > 0) {
+        <h3 class="completed-title">Completati</h3>
+        <div class="goal-list completed">
+          @for (goal of completedGoals; track goal.id) {
+            <div class="goal-item completed-item">
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              <div class="goal-content">
+                <span class="goal-title">{{ goal.title }}</span>
+                <span class="goal-desc">{{ goal.description }}</span>
+                <div class="goal-meta">
+                  <span class="category-badge">{{ goal.category }}</span>
+                </div>
+              </div>
+              <button mat-icon-button color="warn" (click)="deleteGoal(goal)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      }
 
     </div>
 
-  } @else {
-
-    <div class="profile-card">
-
-      <div class="field">
-        <label>Nome</label>
-        <input [(ngModel)]="user.firstName">
-      </div>
-
-      <div class="field">
-        <label>Cognome</label>
-        <input [(ngModel)]="user.lastName">
-      </div>
-
-      <div class="field">
-        <label>Età</label>
-        <input [(ngModel)]="user.age" type="number">
-      </div>
-
-      <div class="field">
-        <label>Altezza</label>
-        <input [(ngModel)]="user.height" type="number">
-      </div>
-
-      <div class="field">
-        <label>Peso</label>
-        <input [(ngModel)]="user.weight" type="number">
-      </div>
-
-      
-
-        <button mat-raised-button color="primary" (click)="save()">
-          Salva
-        </button>
-
-        <button mat-raised-button (click)="toggleEdit()">
-          Indietro
-        </button>
-
-      
-
-    </div>
-
-  }
+  </section>
 
 }
