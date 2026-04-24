@@ -55,6 +55,14 @@ export class WorkoutService {
         );
     }
 
+    getByUserId(userId: string): Observable<Workout[]> {
+        return this.getAll().pipe(
+            map(workouts =>
+            workouts.filter(w => w.userId === userId)
+            )
+        );
+    }
+
     create(workoutData: {
         name: string;
         userId: string; 

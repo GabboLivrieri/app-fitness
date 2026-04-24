@@ -7,6 +7,7 @@ import { Exercise } from '../../../models/exercise-model';
 
 import { MaterialModule } from '../../../modules/material-module';
 import { DifficultyDirective } from "../../../directives/difficulty-directive";
+import { Auth } from '../../../auth/auth';
 
 @Component({
   selector: 'app-create-workout',
@@ -29,6 +30,7 @@ export class CreateWorkout implements OnInit {
   readonly dialog = inject(MatDialog);
 
   constructor(
+    private auth: Auth,
     private workoutService: WorkoutService,
     private dialogRef: MatDialogRef<CreateWorkout>
   ) {
@@ -122,13 +124,13 @@ export class CreateWorkout implements OnInit {
   onSubmit() {
     if (!this.canSave()) return;
 
-    const workout$ = this.workoutService.create({
+    const workout = this.workoutService.create({
       name: this.form.value.name,
-      userId: 'currentUserId',
+      userId: this.auth.getUserId()!,
       exercises: this.selectedExercises,
     });
 
-    workout$.subscribe(workout => {
+    workout.subscribe(workout => {
       this.dialogRef.close(workout);
     });
   }
