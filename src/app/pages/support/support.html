@@ -1,1 +1,89 @@
-<p>support works!</p>
+<div class="support-container">
+
+  @if (loading) {
+    <p>Caricamento...</p>
+  } @else {
+
+    @if (!isAdmin) {
+      <div class="new-ticket-card">
+        <h2>Apri un ticket</h2>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Titolo</mat-label>
+          <input matInput [(ngModel)]="newTitle" placeholder="Descrivi brevemente il problema">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Categoria</mat-label>
+          <mat-select [(ngModel)]="newCategory">
+            <mat-option value="BUG">Bug</mat-option>
+            <mat-option value="RICHIESTA">Richiesta</mat-option>
+            <mat-option value="ALTRO">Altro</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Messaggio</mat-label>
+          <textarea matInput [(ngModel)]="newMessage" rows="4" placeholder="Descrivi il problema nel dettaglio"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="submitTicket()" [disabled]="sending || !newTitle || !newMessage">
+          Invia ticket
+        </button>
+      </div>
+    }
+
+    <h2>{{ isAdmin ? 'Tutti i ticket' : 'I miei ticket' }}</h2>
+
+    @if (tickets.length === 0) {
+      <p class="empty">Nessun ticket presente.</p>
+    }
+
+    @for (ticket of tickets; track ticket.id) {
+      <div class="ticket-card" [class.chiuso]="ticket.status === 'CHIUSO'">
+
+        <div class="ticket-header">
+          <div>
+            <span class="ticket-title">{{ ticket.title }}</span>
+            <span class="ticket-meta">{{ ticket.category }} — {{ ticket.status }}</span>
+            @if (isAdmin) {
+              <span class="ticket-email">{{ ticket.userEmail }}</span>
+            }
+          </div>
+          @if (isAdmin) {
+            <button mat-icon-button color="warn" (click)="deleteTicket(ticket.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </div>
+
+        <p class="ticket-message">{{ ticket.message }}</p>
+
+        @if (ticket.adminReply) {
+          <div class="admin-reply">
+            <mat-icon>support_agent</mat-icon>
+            <p>{{ ticket.adminReply }}</p>
+          </div>
+        }
+
+        @if (isAdmin) {
+          @if (replyingTicketId === ticket.id) {
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Risposta</mat-label>
+              <textarea matInput [(ngModel)]="replyText" rows="3"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="submitReply(ticket.id)">Invia risposta</button>
+            <button mat-stroked-button (click)="cancelReply()">Annulla</button>
+          } @else {
+            <button mat-stroked-button color="primary" (click)="startReply(ticket.id, ticket.adminReply || '')">
+              {{ ticket.adminReply ? 'Modifica risposta' : 'Rispondi' }}
+            </button>
+          }
+        }
+
+      </div>
+    }
+
+  }
+
+</div>

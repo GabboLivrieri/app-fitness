@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth-guard';
+import { adminGuard } from './auth/admin-guard';
+
+import { UsersManagement } from './pages/users-management/users-management';
 
 import { Home } from './pages/home/home';
 import { Profile } from './pages/profile/profile';
@@ -34,6 +37,8 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       { path: 'profile', component: Profile },
+
+      {path: 'users', component: UsersManagement, canActivate: [adminGuard]},
 
       { path: 'workouts', component: WorkoutPage },
       { path: 'workouts/:id', component: WorkoutDetail },

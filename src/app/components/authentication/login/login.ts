@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertDialog } from '../../dialogs/alert-dialog/alert-dialog';
 import { AuthErrorService } from '../../../auth/auth-error';
 import { SignupForm } from '../signup/signup';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,15 @@ export class LoginForm {
 
   form: FormGroup;
 
-  readonly dialog = inject(MatDialog)
+  readonly dialog = inject(MatDialog);
+
   constructor(
     private authService: Auth,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private authError: AuthErrorService,
-    private dialogRef: MatDialogRef<LoginForm>
+    private dialogRef: MatDialogRef<LoginForm>,
+    private userService: UserService
   ) {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required]),
@@ -42,30 +45,40 @@ export class LoginForm {
     this.cdr.detectChanges();
 
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.dialogRef.close();
-        this.cdr.detectChanges();
+      next: (res: any) => {
+        this.userService.getById(res.localId).subscribe({
+          next: (user) => {
+            this.authService.setRole(user.role);
+            this.isLoading = false;
+            this.dialogRef.close();
+            this.cdr.detectChanges();
+          },
+          error: () => {
+
+            this.authService.setRole('USER');
+            this.isLoading = false;
+            this.dialogRef.close();
+            this.cdr.detectChanges();
+          }
+        });
       },
 
       error: (err) => {
         this.isLoading = false;
         this.cdr.detectChanges();
-
         const data = this.authError.getError(err);
-
-        this.dialog.open(AlertDialog, { data })
+        this.dialog.open(AlertDialog, { data });
       }
     });
   }
 
   openSignup() {
-  this.dialogRef.close();
-  this.dialog.open(SignupForm, {
-    width: '500px',
-    disableClose: true
-  });
-}
+    this.dialogRef.close();
+    this.dialog.open(SignupForm, {
+      width: '500px',
+      disableClose: true
+    });
+  }
 
   close() {
     this.dialogRef.close();

@@ -5,30 +5,40 @@
     <button mat-button [routerLink]="['/workouts']">Workout</button>
     <button mat-button [routerLink]="['/meals']">Piatti</button>
     <button mat-button [routerLink]="['/personalTrainer']">Personal trainer</button>
+    <button mat-button [routerLink]="['/support']">Support</button>
   </div>
 
   <div class="nav-right">
 
     @if (isAuth()) {
-  <button mat-button [matMenuTriggerFor]="profileMenu">
-    Profilo
-    <mat-icon>person_outline</mat-icon>
-  </button>
+      <button mat-button [matMenuTriggerFor]="profileMenu">
+        Profilo
+        <mat-icon>person_outline</mat-icon>
+      </button>
 
-  <mat-menu #profileMenu="matMenu">
-    <button mat-menu-item [routerLink]="['/profile']">
-      Vai al profilo
-    </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item [routerLink]="['/profile']">
+          Vai al profilo
+        </button>
 
-    <button mat-menu-item (click)="logout()">
-        <mat-icon>Logout</mat-icon>
-      Esci
-    </button>
-  </mat-menu>
-} @else {
-  <button mat-button (click)="openLogin()">Accedi</button>
-  <button mat-button (click)="openSignup()">Registrati</button>
-}
+        @if (authService.isAdmin()) {
+          <button mat-menu-item [routerLink]="['/users']">
+            <mat-icon>manage_accounts</mat-icon>
+            Gestione utenti
+          </button>
+        }
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Esci
+        </button>
+      </mat-menu>
+
+    } @else {
+      <button mat-button (click)="openLogin()">Accedi</button>
+      <button mat-button (click)="openSignup()">Registrati</button>
+    }
+
   </div>
 
 </nav>
