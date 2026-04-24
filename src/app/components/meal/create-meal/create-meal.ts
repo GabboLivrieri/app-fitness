@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MealService } from '../../../services/meal-service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MaterialModule } from '../../../modules/material-module';
+import { Auth } from '../../../auth/auth';
 
 @Component({
   selector: 'app-create-meal',
@@ -16,6 +17,7 @@ export class CreateMeal implements OnInit {
   form: FormGroup;
 
   constructor(
+    private auth: Auth,
     private mealService: MealService,
     private dialogRef: MatDialogRef<CreateMeal>,
     private router: Router
@@ -53,14 +55,14 @@ export class CreateMeal implements OnInit {
   onSubmit() {
     if (!this.canSave()) return;
 
-    const payload = {
+    const meal = {
       name: this.form.value.name!,
       description: this.form.value.description ?? '',
-      userId: 'currentUserId', 
+      userId: this.auth.getUserId()!, 
       ingredients: this.ingredientsArray.value
     };
 
-    this.mealService.create(payload).subscribe({
+    this.mealService.create(meal).subscribe({
       next: (meal) => {
         this.dialogRef.close(meal);
         this.router.navigate(['/meals']); 

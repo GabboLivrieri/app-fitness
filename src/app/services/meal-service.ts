@@ -43,6 +43,14 @@ export class MealService {
     );
   }
 
+  getByUserId(userId: string): Observable<Meal[]> {
+    return this.getAll().pipe(
+      map(meals =>
+        meals.filter(m => m.userId === userId)
+      )
+    );
+  }
+
   create(mealData: {
     name: string;
     userId: string;

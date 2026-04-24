@@ -8,6 +8,10 @@ import { GoalService } from '../../services/goal-service';
 import { Goal } from '../../models/goal-model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../components/dialogs/confirm-dialog/confirm-dialog';
+import { Meal } from '../../models/meal-model';
+import { MealService } from '../../services/meal-service';
+import { Workout } from '../../models/workout-model';
+import { WorkoutService } from '../../services/workout-service';
 
 @Component({
   selector: 'app-profile',
@@ -27,12 +31,17 @@ export class Profile implements OnInit {
   showNewGoal = false;
   newGoal = { title: '', description: '', deadline: '', category: 'ALLENAMENTO' as Goal['category'] };
 
+  meals: Meal[] = [];
+  workouts: Workout[] = [];
+
   constructor(
     private userService: UserService,
     private auth: Auth,
     private cdr: ChangeDetectorRef,
     private goalService: GoalService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private mealService: MealService,
+    private workoutService: WorkoutService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +56,16 @@ export class Profile implements OnInit {
       },
       error: () => { this.loading = false; }
     });
+
+     this.mealService.getByUserId(userId).subscribe(res => {
+        this.meals = res;
+        this.cdr.detectChanges();
+      });
+
+      this.workoutService.getByUserId(userId).subscribe(res => {
+        this.workouts = res;
+        this.cdr.detectChanges();
+      });
 
     this.loadGoals();
   }
@@ -121,5 +140,46 @@ export class Profile implements OnInit {
           });
       }
     });
+  }
+
+  get monthlyCaloriesStats() {
+    if (!this.user) {
+      return { caloriesIn: 0, caloriesOut: 0, hIn: 0, hOut: 0 };
+    }
+
+    const today = new Date();
+    const m = today.getMonth();
+    const y = today.getFullYear();
+
+    // MEALS del mese per user
+    const mealsMonth = this.meals.filter(m => {
+      const d = new Date(m.createdAt);
+      return m.userId === this.user.id &&
+            d.getMonth() === today.getMonth() &&
+            d.getFullYear() === today.getFullYear();
+    });
+
+    // WORKOUT del mese per user
+    const workoutsMonth = this.workouts.filter(w => {
+      const d = new Date(w.createdAt);
+      return w.userId === this.user.id &&
+            d.getMonth() === today.getMonth() &&
+            d.getFullYear() === today.getFullYear();
+    });
+
+    const caloriesIn = mealsMonth
+      .reduce((sum, m) => sum + (m.totalCalories || 0), 0);
+
+    const caloriesOut = workoutsMonth
+      .reduce((sum, w) => sum + (w.totalCaloriesBurned || 0), 0);
+
+    const max = Math.max(caloriesIn, caloriesOut, 1);
+
+    return {
+      caloriesIn,
+      caloriesOut,
+      hIn: (caloriesIn / max) * 100,
+      hOut: (caloriesOut / max) * 100
+    };
   }
 }
