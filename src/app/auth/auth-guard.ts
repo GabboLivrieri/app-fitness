@@ -1,21 +1,25 @@
-import { CanActivateFn, CanActivateChildFn } from '@angular/router';
-import { inject } from '@angular/core';
+import { CanActivateFn, CanActivateChildFn, Router } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Auth } from './auth';
 
 const checkAuth = (): boolean => {
   const auth = inject(Auth);
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  if (auth.getToken()) {
+  const tokenInMemory = auth.getToken();
+  const tokenInStorage = isPlatformBrowser(platformId) 
+    ? localStorage.getItem('token') 
+    : null;
+
+  if (tokenInMemory || tokenInStorage) {
     return true;
   }
 
+  router.navigate(['/home']);
   return false;
 };
 
-export const authGuard: CanActivateFn = () => {
-  return checkAuth();
-};
-
-export const authChildGuard: CanActivateChildFn = () => {
-  return checkAuth();
-};
+export const authGuard: CanActivateFn = () => checkAuth();
+export const authChildGuard: CanActivateChildFn = () => checkAuth();
