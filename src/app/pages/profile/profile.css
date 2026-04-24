@@ -36,7 +36,7 @@
   padding: 24px;
   background: #fff;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .row {
@@ -83,6 +83,71 @@
   background: #fff;
 }
 
+/* GRAFICO */
+.stats-container {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  margin-bottom: 32px;
+}
+
+.stats-container h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 24px;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  height: 200px;
+  padding: 10px 20px 0;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 120px;
+}
+
+.bar {
+  width: 100%;
+  min-height: 8px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  transition: height 0.5s ease;
+}
+
+.bar.inc {
+  background: linear-gradient(180deg, #4f46e5, #3730a3);
+}
+
+.bar.exp {
+  background: linear-gradient(180deg, #818cf8, #6366f1);
+}
+
+.val {
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+.lbl {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+}
+
 /* GOALS */
 .goals-section {
   background: #fff;
@@ -117,6 +182,74 @@
 
 .new-goal-form mat-form-field { width: 100%; }
 
+/* CALENDARIO SCADENZE */
+.goal-calendar {
+  margin-bottom: 24px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.calendar-header span {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #f9fafb;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  padding: 8px 0;
+  background: #f3f4f6;
+}
+
+.calendar-day {
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 13px;
+  color: #333;
+  cursor: default;
+  border-radius: 8px;
+  margin: 2px;
+  transition: 0.15s ease;
+}
+
+.calendar-day.empty { color: transparent; }
+
+.calendar-day.today {
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.calendar-day.has-deadline {
+  background: #4f46e5;
+  color: white;
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+.calendar-day.has-deadline.today {
+  background: #3730a3;
+}
+
 /* LISTA OBIETTIVI */
 .goal-list {
   display: flex;
@@ -146,16 +279,8 @@
   gap: 4px;
 }
 
-.goal-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #111;
-}
-
-.goal-desc {
-  font-size: 13px;
-  color: #666;
-}
+.goal-title { font-size: 15px; font-weight: 600; color: #111; }
+.goal-desc { font-size: 13px; color: #666; }
 
 .goal-meta {
   display: flex;
@@ -173,10 +298,7 @@
   border-radius: 20px;
 }
 
-.deadline {
-  font-size: 12px;
-  color: #888;
-}
+.deadline { font-size: 12px; color: #888; }
 
 /* COMPLETATI */
 .completed-title {
@@ -186,18 +308,9 @@
   margin: 24px 0 12px;
 }
 
-.completed-item {
-  opacity: 0.6;
-}
-
-.completed-item .goal-title {
-  text-decoration: line-through;
-  color: #888;
-}
-
-.check-icon {
-  color: #22c55e;
-}
+.completed-item { opacity: 0.6; }
+.completed-item .goal-title { text-decoration: line-through; color: #888; }
+.check-icon { color: #22c55e; }
 
 /* EMPTY */
 .empty {
@@ -207,85 +320,9 @@
   margin: 20px 0;
 }
 
-/* LOADING */
 p { text-align: center; color: #777; font-size: 14px; }
 
-.stats-container {
-  margin-top: 24px;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-.stats-container h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.chart-wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  gap: 24px;
-  height: 220px;
-  padding: 10px 0;
-}
-
-/* colonna singola */
-.chart-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-/* barra base */
-.bar {
-  width: 60px;
-  min-height: 10px;
-  border-radius: 10px 10px 0 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 6px;
-  transition: height 0.5s ease;
-  position: relative;
-}
-
-/* calorie assunte */
-.bar.inc {
-  background: linear-gradient(180deg, #4caf50, #2e7d32);
-}
-
-/* calorie bruciate */
-.bar.exp {
-  background: linear-gradient(180deg, #ff7043, #e64a19);
-}
-
-/* numero sopra la barra */
-.val {
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-}
-
-/* label sotto */
-.lbl {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #666;
-}
-
-/* responsive */
 @media (max-width: 600px) {
-  .chart-wrapper {
-    gap: 12px;
-  }
-
-  .bar {
-    width: 45px;
-  }
+  .chart-wrapper { gap: 20px; }
+  .bar { width: 50px; }
 }
