@@ -25,9 +25,45 @@
 
 /* SEZIONE */
 .profile-section {
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1450px; /* oppure 100% se vuoi piena larghezza */
+  margin: 0;         /* rimuove il centramento */
   padding: 40px 20px;
+}
+
+.profile-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* LEFT SIDEBAR (profilo) */
+.profile-left {
+  flex: 0 0 370px;
+  position: sticky;
+  top: 20px;
+}
+
+/* RIGHT CONTENT (stats + goals) */
+.profile-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  gap: 25px;
+  margin-left: 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .profile-layout {
+    flex-direction: column;
+  }
+
+  .profile-left {
+    position: static;
+    width: 100%;
+  }
 }
 
 /* PROFILE CARD */
@@ -37,6 +73,10 @@
   background: #fff;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   margin-bottom: 32px;
+}
+
+.profile-card h2{
+  text-align: center;
 }
 
 .row {

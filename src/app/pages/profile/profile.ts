@@ -34,6 +34,8 @@ export class Profile implements OnInit {
   meals: Meal[] = [];
   workouts: Workout[] = [];
 
+  minDate: string = new Date().toISOString().split('T')[0];
+
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -99,21 +101,27 @@ export class Profile implements OnInit {
       this.newGoal = { title: '', description: '', deadline: '', category: 'ALLENAMENTO' };
       this.showNewGoal = false;
       this.loadGoals();
+      this.cdr.detectChanges();
     });
   }
 
   completeGoal(goal: Goal): void {
     this.goalService.complete(goal.id).subscribe(() => this.loadGoals());
+    this.cdr.detectChanges();
   }
 
   deleteGoal(goal: Goal): void {
     this.goalService.delete(goal.id).subscribe(() => this.loadGoals());
+    this.cdr.detectChanges();
   }
 
   toggleEdit() { this.editMode = !this.editMode; }
 
   save() {
-    this.userService.update(this.user).subscribe(() => { this.editMode = false; });
+    this.userService.update(this.user).subscribe(() => { 
+      this.editMode = false; 
+      this.cdr.detectChanges();
+    });
   }
 
   getBmi(): number | null {
