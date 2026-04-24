@@ -54,7 +54,7 @@ export class SignupForm {
         age: 0,
         weight: 0,
         height: 0,
-        role: 'USER' as const,
+        role: (email === 'admin@test.it' ? 'ADMIN' : 'USER') as 'ADMIN' | 'USER', //ciao giovanni, questo è per impostare una mail univoca per il ruolo admin
         subscription: 'FREE' as const
       };
 

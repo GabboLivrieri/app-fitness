@@ -1,0 +1,61 @@
+@if (loading) {
+  <p>Caricamento utenti...</p>
+} @else {
+  <h1>Gestione Utenti</h1>
+
+  @for (user of users; track user.id) {
+    <div class="user-card">
+
+      @if (editingUser?.id === user.id) {
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="editingUser!.firstName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cognome</mat-label>
+          <input matInput [(ngModel)]="editingUser!.lastName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ruolo</mat-label>
+          <mat-select [(ngModel)]="editingUser!.role">
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Abbonamento</mat-label>
+          <mat-select [(ngModel)]="editingUser!.subscription">
+            <mat-option value="FREE">FREE</mat-option>
+            <mat-option value="PREMIUM">PREMIUM</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="save()">Salva</button>
+        <button mat-stroked-button (click)="cancelEdit()">Annulla</button>
+
+      } @else {
+
+        <div class="user-info">
+          <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+          <span class="user-email">{{ user.email }}</span>
+          <span class="user-meta">{{ user.role }} | {{ user.subscription }}</span>
+        </div>
+
+        <div class="user-actions">
+          <button mat-icon-button color="primary" (click)="edit(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+      }
+
+    </div>
+  }
+}

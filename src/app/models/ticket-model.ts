@@ -1,17 +1,11 @@
-export type TicketStatus = 'OPEN' | 'IN_PROGRESS' | 'RESOLVED';
-
-export interface TicketMessage {
-  senderId: string;
-  message: string;
-  createdAt: Date;
-}
-
 export interface Ticket {
   id: string;
   userId: string;
-  subject: string;
-  status: TicketStatus;
-  messages: TicketMessage[];
-  createdAt: Date;
-  updatedAt: Date;
+  userEmail: string;
+  title: string;
+  message: string;
+  category: 'BUG' | 'RICHIESTA' | 'ALTRO';
+  status: 'APERTO' | 'CHIUSO';
+  createdAt: number;
+  adminReply?: string;
 }
