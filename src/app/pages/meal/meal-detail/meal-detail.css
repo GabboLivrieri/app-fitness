@@ -1,67 +1,78 @@
-/* CARD PRINCIPALE */
-.meal-detail-card {
-  border-radius: 18px;
-  padding: 16px;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-  transition: 0.25s ease;
+/* HERO */
+.detail-hero {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: white;
 }
 
-/* HEADER CENTRATO */
-.center-header {
+.detail-hero-container {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  text-align: center;
+  align-items: center;
 }
 
-.meal-detail-card mat-card-title {
-  font-size: 24px;
-  font-weight: 600;
+.detail-hero-text h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
-/* ===== STATS ===== */
+.detail-hero-text p {
+  font-size: 16px;
+  color: #cbd5f5;
+}
 
+/* SEZIONE */
+.detail-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* STATS */
 .stats {
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin-top: 14px;
+  gap: 16px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
 .stat-card {
-  background: #f9fafb;
-  padding: 14px 18px;
-  border-radius: 14px;
-  min-width: 120px;
+  background: #fff;
+  padding: 20px 28px;
+  border-radius: 16px;
+  min-width: 130px;
   text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   transition: 0.2s ease;
 }
 
 .stat-card:hover {
-  background: #f3f4f6;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .stat-card .value {
   display: block;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111;
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
 }
 
 .stat-card .label {
   font-size: 12px;
-  color: #777;
+  color: #888;
+  margin-top: 4px;
+  display: block;
 }
 
-/* ===== INGREDIENTI ===== */
-
-.ingredient-section {
-  margin-top: 20px;
-}
-
-.center-text {
+/* TITOLO */
+.detail-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -69,75 +80,64 @@
 .ingredient-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 12px;
-  margin-top: 10px;
 }
 
 /* CARD INGREDIENTE */
 .ingredient-card {
-  width: 100%;
-  max-width: 420px;
-  background: #f9fafb;
-  padding: 16px;
+  background: #fff;
   border-radius: 14px;
-  text-align: center;
+  padding: 16px 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
   transition: 0.2s ease;
+  text-align: center;
 }
 
 .ingredient-card:hover {
-  background: #f3f4f6;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.09);
 }
 
-/* NOME INGREDIENTE */
+.ingredient-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
 .ingredient-name {
   font-size: 16px;
   font-weight: 600;
+  color: #111;
 }
 
-/* INFO */
-.ingredient-info {
-  margin-top: 8px;
+.calorie-badge {
   font-size: 13px;
-  color: #555;
+  font-weight: 600;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 4px 10px;
+  border-radius: 20px;
 }
 
-/* EMPTY STATE */
+/* EMPTY */
 .empty {
-  color: #777;
+  text-align: center;
+  color: #999;
   font-size: 14px;
+  margin-top: 20px;
 }
 
-/* ===== ACTIONS ===== */
-
-.meal-detail-card mat-card-actions {
+/* ACTIONS */
+.actions {
   display: flex;
-  gap: 10px;
-  margin-top: 14px;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
 }
 
-.meal-detail-card button {
-  flex: 1;
+.actions button {
   border-radius: 10px;
-}
-
-/* PRIMARY */
-.meal-detail-card button[color="primary"] {
-  background: #4f46e5;
-  color: white;
-}
-
-.meal-detail-card button[color="primary"]:hover {
-  background: #4338ca;
-}
-
-/* WARN */
-.meal-detail-card button[color="warn"] {
-  background: #ef4444;
-  color: white;
-}
-
-.meal-detail-card button[color="warn"]:hover {
-  background: #dc2626;
+  padding: 8px 20px;
 }

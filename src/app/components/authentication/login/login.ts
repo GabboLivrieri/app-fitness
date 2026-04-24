@@ -51,7 +51,7 @@ export class LoginForm {
             this.authService.setRole(user.role);
             this.isLoading = false;
             this.dialogRef.close();
-            this.cdr.detectChanges();
+            window.location.reload();
           },
           error: () => {
 
@@ -66,6 +66,7 @@ export class LoginForm {
       error: (err) => {
         this.isLoading = false;
         this.cdr.detectChanges();
+        this.router.navigateByUrl(this.router.url);
         const data = this.authError.getError(err);
         this.dialog.open(AlertDialog, { data });
       }

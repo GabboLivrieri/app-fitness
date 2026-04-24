@@ -1,48 +1,55 @@
-<button mat-raised-button color="primary" (click)="openCreateWorkouts()">
-  Nuovo Workout
-</button>
-
-@if (workouts$ | async; as workouts) {
-
-  <div class="filters">
-
-    <mat-form-field>
-      <mat-label>Ordina per</mat-label>
-      <mat-select (selectionChange)="setSortField($event.value)">
-        <mat-option value="calories">Calorie</mat-option>
-        <mat-option value="exercises">Esercizi</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Direzione</mat-label>
-      <mat-select (selectionChange)="setSortDirection($event.value)">
-        <mat-option value="asc">Crescente</mat-option>
-        <mat-option value="desc">Decrescente</mat-option>
-      </mat-select>
-    </mat-form-field>
-
+<section class="page-hero">
+  <div class="page-hero-container">
+    <div class="page-hero-text">
+      <h1>I miei workout</h1>
+      <p>Crea e gestisci i tuoi allenamenti personalizzati, tieni traccia degli esercizi e delle calorie.</p>
+      <button mat-raised-button color="primary" (click)="openCreateWorkouts()">
+        <mat-icon>add</mat-icon>
+        Nuovo Workout
+      </button>
+    </div>
   </div>
+</section>
 
-  <div class="workouts-container">
+<section class="page-section">
 
-    @for (workout of sortWorkouts(workouts); track workout.id) {
+  @if (workouts$ | async; as workouts) {
 
-      <app-workout-card
-        [workout]="workout"
-        [showImage]="false"
-        [showEdit]="true"
-        [showDetail]="true"
-        [showDelete]="true"
-        (edit)="onEditWorkout(workout)"
-        (detail)="onDetailWorkout(workout)"
-        (delete)="deleteWorkout(workout)">
-      </app-workout-card>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Ordina per</mat-label>
+        <mat-select (selectionChange)="setSortField($event.value)">
+          <mat-option value="calories">Calorie</mat-option>
+          <mat-option value="exercises">Esercizi</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    }
+      <mat-form-field appearance="outline">
+        <mat-label>Direzione</mat-label>
+        <mat-select (selectionChange)="setSortDirection($event.value)">
+          <mat-option value="asc">Crescente</mat-option>
+          <mat-option value="desc">Decrescente</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  </div>
+    <div class="workouts-container">
+      @for (workout of sortWorkouts(workouts); track workout.id) {
+        <app-workout-card
+          [workout]="workout"
+          [showImage]="false"
+          [showEdit]="true"
+          [showDetail]="true"
+          [showDelete]="true"
+          (edit)="onEditWorkout(workout)"
+          (detail)="onDetailWorkout(workout)"
+          (delete)="deleteWorkout(workout)">
+        </app-workout-card>
+      }
+    </div>
 
-} @else {
-  <p>Nessun workout presente</p>
-}
+  } @else {
+    <p class="empty">Nessun workout presente</p>
+  }
+
+</section>

@@ -1,152 +1,169 @@
-/* CARD */
-.workout-detail-card {
-  border-radius: 18px;
-  padding: 16px;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-  transition: 0.25s ease;
+/* HERO */
+.detail-hero {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: white;
 }
 
-/* HEADER CENTRATO */
-.center-header {
+.detail-hero-container {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  text-align: center;
+  align-items: center;
+  gap: 40px;
 }
 
-.workout-detail-card mat-card-title {
-  font-size: 24px;
-  font-weight: 600;
+.detail-hero-text {
+  flex: 1;
 }
 
-/* MINI CARDS */
+.detail-hero-text h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.detail-hero-text p {
+  font-size: 16px;
+  color: #cbd5f5;
+}
+
+.detail-hero-image {
+  flex: 1;
+}
+
+.detail-hero-image img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  max-height: 280px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* SEZIONE */
+.detail-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* STATS */
 .stats {
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin-top: 14px;
+  gap: 16px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
 .stat-card {
-  background: #f9fafb;
-  padding: 14px 18px;
-  border-radius: 14px;
-  min-width: 110px;
+  background: #fff;
+  padding: 20px 28px;
+  border-radius: 16px;
+  min-width: 130px;
   text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   transition: 0.2s ease;
 }
 
 .stat-card:hover {
-  background: #f3f4f6;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .stat-card .value {
   display: block;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111;
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
 }
 
 .stat-card .label {
   font-size: 12px;
-  color: #777;
+  color: #888;
+  margin-top: 4px;
+  display: block;
 }
 
-/* ESERCIZI */
-.exercise-section {
-  margin-top: 20px;
-}
-
-.center-text {
+/* TITOLO ESERCIZI */
+.detail-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-/* LISTA CENTRATA */
+/* LISTA ESERCIZI */
 .exercise-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 14px;
 }
 
 /* CARD ESERCIZIO */
 .exercise-card {
-  width: 100%;
-  max-width: 420px;
-  background: #f9fafb;
-  padding: 16px;
-  border-radius: 14px;
-  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
   transition: 0.2s ease;
+  text-align: center;
 }
 
 .exercise-card:hover {
-  background: #f3f4f6;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.09);
 }
 
-/* NOME */
+.exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
 .exercise-name {
   font-size: 16px;
   font-weight: 600;
+  color: #111;
+}
+
+.muscle-badge {
+  font-size: 11px;
+  font-weight: 600;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 4px 10px;
+  border-radius: 20px;
 }
 
 /* INFO */
 .exercise-info {
-  margin-top: 8px;
-  font-size: 13px;
-  color: #555;
   display: flex;
-  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .exercise-info span {
-  border: 1px solid #d2c3c3;
-  padding: 2px 6px;
-  border-radius: 40px;
-  background-color: #bebebe;
-  color: rgb(0, 0, 0);
+  font-size: 13px;
+  color: #555;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 4px 10px;
+  border-radius: 20px;
 }
 
-/* EMPTY */
-.empty {
-  color: #777;
-  font-size: 14px;
-}
-
-/* ACTIONS */
-.workout-detail-card mat-card-actions {
+/* BACK */
+.back-action {
+  margin-top: 32px;
   display: flex;
-  gap: 10px;
-  margin-top: 14px;
+  justify-content: center;
 }
 
-.workout-detail-card button {
-  flex: 1;
+.back-action button {
   border-radius: 10px;
-}
-
-/* PRIMARY */
-.workout-detail-card button[color="primary"] {
-  background: #4f46e5;
-  color: white;
-}
-
-.workout-detail-card button[color="primary"]:hover {
-  background: #4338ca;
-}
-
-/* DELETE */
-.workout-detail-card button[color="warn"] {
-  background: #ef4444;
-  color: white;
-}
-
-.workout-detail-card button[color="warn"]:hover {
-  background: #dc2626;
+  padding: 8px 20px;
+  font-size: 14px;
 }

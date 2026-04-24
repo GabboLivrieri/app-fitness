@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../auth/auth';
 import { MaterialModule } from '../../../modules/material-module';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginForm } from '../../authentication/login/login';
 import { SignupForm } from '../../authentication/signup/signup';
-
 
 @Component({
   selector: 'app-navbar',
@@ -13,13 +12,22 @@ import { SignupForm } from '../../authentication/signup/signup';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
-export class Navbar {
+export class Navbar implements OnInit {
 
   constructor(
     public authService: Auth,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   openLogin() {
     this.dialog.open(LoginForm, {
@@ -37,11 +45,10 @@ export class Navbar {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   isAuth() {
     return this.authService.isLogged();
   }
-
 }

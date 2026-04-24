@@ -1,76 +1,71 @@
 @if (workout$ | async; as workout) {
-<mat-card class="workout-detail-card">
 
-  <mat-card-header class="center-header">
-    <mat-card-title>{{ workout.name | capitalize}}</mat-card-title>
-  </mat-card-header>
+  <section class="detail-hero">
+    <div class="detail-hero-container">
+      <div class="detail-hero-text">
+        <h1>{{ workout.name | capitalize }}</h1>
+        <p>Dettaglio completo con esercizi, calorie e tempi di recupero.</p>
+      </div>
+    </div>
+  </section>
 
-  <mat-card-content>
+  <section class="detail-section">
+
     <div class="stats">
-
       <div class="stat-card">
-        <span class="value">{{ workout.totalCaloriesBurned | calories}}</span>
+        <span class="value">{{ workout.totalCaloriesBurned | calories }}</span>
         <span class="label">Calorie bruciate</span>
       </div>
-
       <div class="stat-card">
         <span class="value">{{ workout.exercises.length }}</span>
         <span class="label">Esercizi</span>
       </div>
-
       <div class="stat-card">
         <span class="value">{{ workout.createdAt | createdAtFormat }}</span>
         <span class="label">Data creazione</span>
       </div>
-
     </div>
-  </mat-card-content>
 
-  <mat-divider></mat-divider>
-
-  <div class="exercise-section">
-    <h3 class="center-text">Esercizi</h3>
+    <h2>Esercizi</h2>
 
     @if (workout.exercises.length > 0) {
-
       <div class="exercise-list">
-
         @for (ex of workout.exercises; track ex.id) {
           <div class="exercise-card">
-
-            <div class="exercise-name">
-              <span [appDifficulty]="ex.difficulty"> {{ ex.name | capitalize}}  [{{ ex.muscleGroup }}]</span>
+            <div class="exercise-header">
+              <span class="exercise-name" [appDifficulty]="ex.difficulty">
+                {{ ex.name | capitalize }}
+              </span>
+              <span class="muscle-badge">{{ ex.muscleGroup }}</span>
             </div>
-
             <div class="exercise-info">
-              <span>Calorie bruciate: {{ ex.caloriesBurned | calories}}</span>
-              <span>Serie: {{ ex.sets }}</span>
-              <span>Reps: {{ ex.reps }}</span>
-              <span>Recupero: {{ ex.restTime }}s</span>
+              <span>{{ ex.caloriesBurned | calories }}</span>
+              <span>{{ ex.sets }} serie</span>
+              <span>{{ ex.reps }} reps</span>
+              <span>{{ ex.restTime }}s recupero</span>
             </div>
-
           </div>
         }
-
       </div>
-
     } @else {
-      <p class="empty center-text">Nessun esercizio presente</p>
+      <p class="empty">Nessun esercizio presente</p>
     }
-  </div>
 
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="onEditWorkout(workout)">
-      Modifica
-    </button>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="onEditWorkout(workout)">
+        <mat-icon>edit</mat-icon>
+        Modifica
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteWorkout(workout)">
+        <mat-icon>delete</mat-icon>
+        Elimina
+      </button>
+      <button mat-stroked-button (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Indietro
+      </button>
+    </div>
 
-    <button mat-button color="warn" (click)="deleteWorkout(workout)">
-      Elimina
-    </button>
-    <button mat-button color="primary" (click)="onBack()">
-      Indietro 
-    </button>
-  </mat-card-actions>
+  </section>
 
-</mat-card>
 }
