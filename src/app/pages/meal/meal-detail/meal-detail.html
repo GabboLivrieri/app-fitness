@@ -1,84 +1,63 @@
 @if (meal$ | async; as meal) {
 
-<mat-card class="meal-detail-card">
+  <section class="detail-hero">
+    <div class="detail-hero-container">
+      <div class="detail-hero-text">
+        <h1>{{ meal.name | capitalize }}</h1>
+        <p>Dettaglio completo con ingredienti e calorie.</p>
+      </div>
+    </div>
+  </section>
 
-  <mat-card-header class="center-header">
-    <mat-card-title>{{ meal.name | capitalize }}</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
+  <section class="detail-section">
 
     <div class="stats">
-
       <div class="stat-card">
         <span class="value">{{ meal.totalCalories | calories }}</span>
-        <span class="label"> totali</span>
+        <span class="label">Calorie totali</span>
       </div>
-
       <div class="stat-card">
         <span class="value">{{ meal.ingredients.length }}</span>
-        <span class="label"> Ingredienti</span>
+        <span class="label">Ingredienti</span>
       </div>
-
       <div class="stat-card">
         <span class="value">{{ meal.createdAt | createdAtFormat }}</span>
         <span class="label">Data creazione</span>
       </div>
-
     </div>
 
-  </mat-card-content>
-
-  <mat-divider></mat-divider>
-
-  <div class="ingredient-section">
-
-    <h3 class="center-text">Ingredienti</h3>
+    <h2>Ingredienti</h2>
 
     @if (meal.ingredients.length > 0) {
-
       <div class="ingredient-list">
-
         @for (ing of meal.ingredients; track ing.name) {
-
           <div class="ingredient-card">
-
-            <div class="ingredient-name">
-              <span>{{ ing.name | capitalize }}</span>
+            <div class="ingredient-header">
+              <span class="ingredient-name">{{ ing.name | capitalize }}</span>
+              <span class="calorie-badge">{{ ing.calories | calories }}</span>
             </div>
-
-            <div class="ingredient-info">
-              <span>Calorie: {{ ing.calories | calories }}</span>
-            </div>
-
           </div>
-
         }
-
       </div>
-
     } @else {
-      <p class="empty center-text">Nessun ingrediente presente</p>
+      <p class="empty">Nessun ingrediente presente</p>
     }
 
-  </div>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="onEditMeal(meal)">
+        <mat-icon>edit</mat-icon>
+        Modifica
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteMeal(meal)">
+        <mat-icon>delete</mat-icon>
+        Elimina
+      </button>
+      <button mat-stroked-button (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Indietro
+      </button>
+    </div>
 
-  <mat-card-actions>
-
-    <button mat-button color="primary" (click)="onEditMeal(meal)">
-      Modifica
-    </button>
-
-    <button mat-button color="warn" (click)="deleteMeal(meal)">
-      Elimina
-    </button>
-
-    <button mat-button color="primary" (click)="onBack()">
-      Indietro
-    </button>
-
-  </mat-card-actions>
-
-</mat-card>
+  </section>
 
 }

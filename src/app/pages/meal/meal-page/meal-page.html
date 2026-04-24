@@ -1,44 +1,51 @@
-<button mat-raised-button color="primary" (click)="openCreateMeal()">
-  Nuovo Pasto
-</button>
-
-@if (meals$ | async; as meals) {
-
-  <div class="filters">
-
-    <mat-form-field>
-      <mat-label>Ordina per</mat-label>
-      <mat-select (selectionChange)="setSortField($event.value)">
-        <mat-option value="calories">Calorie</mat-option>
-        <mat-option value="ingredients">Ingredienti</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Direzione</mat-label>
-      <mat-select (selectionChange)="setSortDirection($event.value)">
-        <mat-option value="asc">Crescente</mat-option>
-        <mat-option value="desc">Decrescente</mat-option>
-      </mat-select>
-    </mat-form-field>
-
+<section class="page-hero">
+  <div class="page-hero-container">
+    <div class="page-hero-text">
+      <h1>I miei pasti</h1>
+      <p>Gestisci la tua alimentazione, tieni traccia delle calorie e degli ingredienti.</p>
+      <button mat-raised-button color="primary" (click)="openCreateMeal()">
+        <mat-icon>add</mat-icon>
+        Nuovo Pasto
+      </button>
+    </div>
   </div>
+</section>
 
-  <div class="meals-container">
+<section class="page-section">
 
-    @for (meal of sortMeals(meals); track meal.id) {
+  @if (meals$ | async; as meals) {
 
-      <app-meal-card
-        [meal]="meal"
-        (edit)="onEditMeal(meal)"
-        (detail)="onDetailMeal(meal)"
-        (delete)="deleteMeal(meal)">
-      </app-meal-card>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Ordina per</mat-label>
+        <mat-select (selectionChange)="setSortField($event.value)">
+          <mat-option value="calories">Calorie</mat-option>
+          <mat-option value="ingredients">Ingredienti</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    }
+      <mat-form-field appearance="outline">
+        <mat-label>Direzione</mat-label>
+        <mat-select (selectionChange)="setSortDirection($event.value)">
+          <mat-option value="asc">Crescente</mat-option>
+          <mat-option value="desc">Decrescente</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  </div>
+    <div class="meals-container">
+      @for (meal of sortMeals(meals); track meal.id) {
+        <app-meal-card
+          [meal]="meal"
+          (edit)="onEditMeal(meal)"
+          (detail)="onDetailMeal(meal)"
+          (delete)="deleteMeal(meal)">
+        </app-meal-card>
+      }
+    </div>
 
-} @else {
-  <p class="empty">Nessun pasto presente</p>
-}
+  } @else {
+    <p class="empty">Nessun pasto presente</p>
+  }
+
+</section>

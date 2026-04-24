@@ -1,37 +1,45 @@
-<div class="card">
-  @if (meal$ | async; as meal) {
+@if (meal$ | async; as meal) {
 
-    <div class="layout">
-
-      <div class="left">
+  <section class="detail-hero">
+    <div class="detail-hero-container">
+      <div class="detail-hero-text">
+        <h1>{{ meal.strMeal | capitalize }}</h1>
+        <p>{{ meal.strCategory }} • {{ meal.strArea }}</p>
+      </div>
+      <div class="detail-hero-image">
         <img [src]="meal.strMealThumb">
+      </div>
+    </div>
+  </section>
 
-        <h3>{{ meal.strMeal | capitalize }}</h3>
+  <section class="detail-section">
 
-        <p class="meta">{{ meal.strCategory }}</p>
-        <p class="meta">{{ meal.strArea }}</p>
+    <div class="detail-layout">
 
-        <button mat-stroked-button color="primary" (click)="onBack()">
-          Back
-        </button> 
+      <div class="instructions-block">
+        <h2>Istruzioni</h2>
+        <p class="instructions">{{ meal.strInstructions }}</p>
       </div>
 
-      <div class="right">
-
-        <h2>Instructions</h2>
-        <p class="instructions">{{ meal.strInstructions }}</p>
-
-        <h2>Ingredients</h2>
-
-        @for (item of ingredients$| async; track item.name) {
-          <p class="ingredient">
-            {{ item.name | capitalize }} - {{ item.measure }}
-          </p>
+      <div class="ingredients-block">
+        <h2>Ingredienti</h2>
+        @for (item of ingredients$ | async; track item.name) {
+          <div class="ingredient">
+            <span class="ingredient-name">{{ item.name | capitalize }}</span>
+            <span class="ingredient-measure">{{ item.measure }}</span>
+          </div>
         }
-
       </div>
 
     </div>
 
-  }
-</div> 
+    <div class="back-action">
+      <button mat-stroked-button (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Indietro
+      </button>
+    </div>
+
+  </section>
+
+}

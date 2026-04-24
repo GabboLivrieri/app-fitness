@@ -1,23 +1,44 @@
-:host {
-  display: block;
-  padding: 24px;
-  max-width: 900px;
-  margin: 0 auto;
-  font-family: Roboto, sans-serif;
+/* HERO */
+.page-hero {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: white;
 }
 
-/* Bottone principale */
-button[mat-raised-button] {
+.page-hero-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-hero-text h1 {
+  font-size: 42px;
+  line-height: 1.2;
   margin-bottom: 12px;
 }
 
-/* ===== FILTRI ===== */
+.page-hero-text p {
+  font-size: 16px;
+  color: #cbd5f5;
+  margin-bottom: 24px;
+}
 
+.page-hero-text button {
+  border-radius: 10px;
+}
+
+/* SEZIONE */
+.page-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* FILTRI */
 .filters {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .filters mat-form-field {
@@ -25,46 +46,25 @@ button[mat-raised-button] {
   flex: 1;
 }
 
-/* ===== GRID MEALS (MATCH WORKOUTS STYLE) ===== */
-
+/* GRID */
 .meals-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  gap: 20px;
 }
 
-/* ===== EMPTY STATE (MATCH PARAGRAFO WORKOUT) ===== */
-
+/* EMPTY */
 .empty {
   text-align: center;
-  color: #888;
+  color: #999;
   font-size: 14px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
-/* ===== UX POLISH (ALLINEATO WORKOUT STYLE) ===== */
-
-/* elimina vecchio mat-list */
-mat-list,
-mat-list-item {
-  display: none;
-}
-
-/* hover cards */
 app-meal-card {
   transition: transform 0.2s ease;
 }
 
 app-meal-card:hover {
   transform: scale(1.02);
-}
-
-/* ===== STATS (ADATTATO ALLO STILE GRID DEL TARGET) ===== */
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
 }
