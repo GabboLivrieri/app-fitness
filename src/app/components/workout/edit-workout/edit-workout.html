@@ -46,8 +46,6 @@
     Aggiungi esercizio
   </button>
 
-  @if (selectedExercises.length > 0) {
-
     <mat-list>
 
       @for (ex of selectedExercises; track ex.id) {
@@ -90,12 +88,13 @@
 
         </mat-list-item>
       }
+        @if (selectedExercises.length < 3) {
+          <p class="empty-msg">
+            Inserisci almeno 3 esercizi
+          </p>
+        }
 
     </mat-list>
-
-  } @else {
-    <p>Nessun esercizio selezionato</p>
-  }
 
   <button
     mat-raised-button

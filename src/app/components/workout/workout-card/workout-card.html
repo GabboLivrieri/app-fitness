@@ -1,16 +1,15 @@
 <div class="workout-container">
 
   <mat-card class="workout-card">
+    @if (showImage && workout.image) {
+      <img mat-card-image [src]="workout.image" alt="Workout image">
+    }
     <mat-card-header>
       <mat-card-title>
         {{ workout.name | capitalize}}
       </mat-card-title>
     </mat-card-header>
-
-    @if (showImage && workout.image) {
-      <img mat-card-image [src]="workout.image" alt="Workout image">
-    }
-
+    
     <mat-card-content>
       <p>Calorie bruciate: {{ workout.totalCaloriesBurned | calories}}</p>
       <p>Numero esercizi: {{ workout.exercises.length }}</p>
