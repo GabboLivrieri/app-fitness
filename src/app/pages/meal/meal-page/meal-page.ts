@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { Auth } from '../../../auth/auth';
+
 import { Meal } from '../../../models/meal-model';
 import { MealService } from '../../../services/meal-service';
 
@@ -33,6 +35,7 @@ export class MealPage implements OnInit {
     private mealService: MealService,
     private dialog: MatDialog,
     private router: Router,
+    private auth: Auth,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -42,7 +45,8 @@ export class MealPage implements OnInit {
 
 
   loadMeals() {
-    this.meals$ = this.mealService.getAll();
+    const userId = this.auth.getUserId()!;
+    this.meals$ = this.mealService.getByUserId(userId);  
   }
 
   openCreateMeal() {
