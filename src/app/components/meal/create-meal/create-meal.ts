@@ -25,7 +25,7 @@ export class CreateMeal implements OnInit {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      ingredients: new FormArray([]) 
+      ingredients: new FormArray<FormGroup>([]) 
     });
   }
 
@@ -38,7 +38,8 @@ export class CreateMeal implements OnInit {
   addIngredient() {
     const ingredientGroup = new FormGroup({
       name: new FormControl('', Validators.required),
-      calories: new FormControl(0, [Validators.required, Validators.min(0)])
+      calories: new FormControl(null, [Validators.required, Validators.min(1)]),
+      quantity: new FormControl(null, [Validators.required, Validators.min(1)])
     });
 
     this.ingredientsArray.push(ingredientGroup);
@@ -48,8 +49,21 @@ export class CreateMeal implements OnInit {
     this.ingredientsArray.removeAt(index);
   }
 
+  isIngredientsValid(): boolean {
+    const ingredients = this.ingredientsArray.value;
+
+    return (
+      ingredients.length >= 3 &&
+      ingredients.every((i: any) =>
+        i.name?.trim().length > 0 &&
+        i.calories !== null && i.calories !== '' &&
+        i.quantity !== null && i.quantity !== ''
+      )
+    );
+  }
+
   canSave(): boolean {
-    return this.form.valid && this.ingredientsArray.length > 0;
+    return this.form.valid && this.isIngredientsValid();
   }
 
   onSubmit() {
@@ -68,7 +82,7 @@ export class CreateMeal implements OnInit {
         this.router.navigate(['/meals']); 
       },
       error: (err) => {
-        console.error('Errore creazione meal:', err);
+        console.error('Errore creazione pasto:', err);
       }
     });
   }

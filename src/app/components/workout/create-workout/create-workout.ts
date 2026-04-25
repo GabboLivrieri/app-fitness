@@ -118,7 +118,7 @@ export class CreateWorkout implements OnInit {
   }
 
   canSave(): boolean {
-    return this.form.valid && this.selectedExercises.length > 0;
+    return this.form.valid && this.selectedExercises.length > 2;
   }
 
   onSubmit() {

@@ -366,3 +366,22 @@ p { text-align: center; color: #777; font-size: 14px; }
   .chart-wrapper { gap: 20px; }
   .bar { width: 50px; }
 }
+
+.subscription-inline {
+  display: flex;
+  align-items: center;
+}
+
+.subscription-inline button {
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* centra perfettamente l'icona */
+.subscription-inline mat-icon {
+  font-size: 18px;
+  margin: 0;
+}

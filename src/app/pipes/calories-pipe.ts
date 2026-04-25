@@ -7,9 +7,9 @@ export class CaloriesPipe implements PipeTransform {
 
   transform(value: number | null | undefined): string {
     if (value === null || value === undefined) {
-      return '0 kcal';
+      return ' ~0 kcal';
     }
 
-    return `${value} kcal`;
+    return ` ~${value} kcal`;
   }
 }

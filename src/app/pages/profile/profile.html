@@ -26,17 +26,21 @@
             <div class="row"><span>Peso</span><div>{{ user.weight }} kg</div></div>
             <div class="row"><span>Ruolo</span><div>{{ user.role }}</div></div>
             <div class="row">
-            <span>Abbonamento</span>
-            <div>
-              @if (user.subscription === 'PREMIUM') {
-                <button mat-button color="warn" (click)="deleteSubscription()">
-                  Disdici
-                </button>
-              }
-
-              {{ user.subscription }}
+              <span>Abbonamento</span>
+              <div class="subscription-inline">
+                @if (user.subscription === 'PREMIUM') {
+                  <button 
+                  mat-button 
+                  color="warn" 
+                  (click)="deleteSubscription()"
+                  matTooltip="Disdici abbonamento"
+                  matTooltipPosition="above">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                }
+                {{ user.subscription }}
+              </div>
             </div>
-          </div>
             <div class="row">
               <span>BMI</span>
               <div>{{ getBmi() !== null ? getBmi() : 'N/A' }}</div>

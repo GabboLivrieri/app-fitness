@@ -121,7 +121,7 @@ export class EditWorkout {
   }
 
   canSave(): boolean {
-    return this.form.valid && this.selectedExercises.length > 0;
+    return this.form.valid && this.selectedExercises.length > 2;
   }
 
   onSubmit() {

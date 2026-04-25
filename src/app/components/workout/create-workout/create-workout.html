@@ -1,12 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <!-- NOME WORKOUT -->
   <mat-form-field appearance="outline" class="w-full">
     <mat-label>Nome workout</mat-label>
     <input matInput formControlName="name" />
   </mat-form-field>
 
-  <!-- SELECT + SEARCH -->
   <mat-form-field appearance="outline" class="w-full">
     <mat-label>Seleziona esercizio</mat-label>
 
@@ -40,15 +38,11 @@
     </mat-select>
   </mat-form-field>
 
-  <!-- BOTTONE AGGIUNGI -->
   <button mat-raised-button color="primary" type="button"
           (click)="addExercise(form.get('exerciseSelect')?.value)"
           [disabled]="!form.get('exerciseSelect')?.value">
     Aggiungi esercizio
   </button>
-
-  <!-- LISTA -->
-  @if (selectedExercises.length > 0) {
 
     <mat-list>
       @for (ex of selectedExercises; track ex.id) {
@@ -90,13 +84,14 @@
 
         </mat-list-item>
       }
+        @if (selectedExercises.length < 3) {
+          <p class="empty-msg">
+            Inserisci almeno 3 esercizi
+          </p>
+        }
     </mat-list>
 
-  } @else {
-    <p>Nessun esercizio selezionato</p>
-  }
 
-  <!-- SUBMIT -->
   <button mat-raised-button color="accent"
           type="submit"
           [disabled]="!canSave()">

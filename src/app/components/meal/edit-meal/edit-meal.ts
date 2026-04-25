@@ -14,8 +14,6 @@ import { Ingredient } from '../../../models/ingredient-model';
 })
 export class EditMeal implements OnInit {
 
-  ingredients = new FormArray<FormGroup>([]);
-
   form: FormGroup;
 
   constructor(
@@ -26,54 +24,66 @@ export class EditMeal implements OnInit {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      ingredients: this.ingredients // 🔥 collegamento diretto
+      ingredients: new FormArray<FormGroup>([])
     });
   }
 
   ngOnInit(): void {
     if (!this.data) return;
 
-    // 🔥 patch base form
     this.form.patchValue({
       name: this.data.name,
       description: this.data.description
     });
 
-    // 🔥 reset array per evitare duplicati
-    this.ingredients.clear();
+    this.ingredientsArray.clear();
 
-    // 🔥 carico ingredienti esistenti
     (this.data.ingredients || []).forEach((ing: Ingredient) => {
-      this.ingredients.push(
+      this.ingredientsArray.push(
         new FormGroup({
           name: new FormControl(ing.name, Validators.required),
-          calories: new FormControl(ing.calories, Validators.required)
+          calories: new FormControl(ing.calories, [Validators.required, Validators.min(1)]),
+          quantity: new FormControl(ing.quantity, [Validators.required, Validators.min(1)])
         })
       );
     });
   }
 
-  // ➕ aggiungi ingrediente
+  get ingredientsArray(): FormArray {
+    return this.form.get('ingredients') as FormArray;
+  }
+
   addIngredient() {
-    this.ingredients.push(
+    this.ingredientsArray.push(
       new FormGroup({
         name: new FormControl('', Validators.required),
-        calories: new FormControl(0, Validators.required)
+        calories: new FormControl(null, [Validators.required, Validators.min(1)]),
+        quantity: new FormControl(null, [Validators.required, Validators.min(1)])
       })
     );
   }
 
-  // ❌ rimuovi ingrediente
   removeIngredient(index: number) {
-    this.ingredients.removeAt(index);
+    this.ingredientsArray.removeAt(index);
   }
 
-  // 💾 validazione
+  isIngredientsValid(): boolean {
+    const ingredients = this.ingredientsArray.value;
+
+    return (
+      ingredients.length >= 3 &&
+      ingredients.every((i: any) =>
+        i.name?.trim().length > 0 &&
+        i.calories != null &&
+        i.quantity != null
+      )
+    );
+  }
+
   canSave(): boolean {
-    return this.form.valid && this.ingredients.length > 0;
+    return this.form.valid && this.isIngredientsValid();
   }
 
-  // 🚀 submit finale
   onSubmit() {
     if (!this.canSave()) return;
 
@@ -82,7 +92,7 @@ export class EditMeal implements OnInit {
       name: this.form.value.name ?? '',
       description: this.form.value.description ?? '',
       userId: this.data.userId,
-      ingredients: this.ingredients.getRawValue() as Ingredient[],
+      ingredients: this.ingredientsArray.getRawValue() as Ingredient[],
       totalCalories: this.data.totalCalories,
       createdAt: this.data.createdAt
     };
@@ -91,7 +101,7 @@ export class EditMeal implements OnInit {
 
     meal$.subscribe({
       next: (meal) => this.dialogRef.close(meal),
-      error: (err) => console.error('Meal update error:', err)
+      error: (err) => console.error('Errore creazione pasto:', err)
     });
   }
 }

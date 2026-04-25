@@ -4,7 +4,7 @@
 
     <mat-card-header>
       <mat-card-title>
-        Modifica piatto
+        Modifica pasto
       </mat-card-title>
     </mat-card-header>
 
@@ -13,7 +13,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Nome piatto</mat-label>
+          <mat-label>Nome pasto</mat-label>
           <input matInput formControlName="name">
         </mat-form-field>
 
@@ -36,13 +36,18 @@
 
           <div formArrayName="ingredients">
 
-            @for (ingredient of ingredients.controls; track $index) {
+            @for (ingredient of ingredientsArray.controls; track $index) {
 
               <div [formGroupName]="$index" class="ingredient-row">
 
                 <mat-form-field appearance="outline">
                   <mat-label>Nome</mat-label>
                   <input matInput formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantità</mat-label>
+                  <input matInput formControlName="quantity">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
@@ -60,9 +65,9 @@
 
             }
 
-            @if (ingredients.length === 0) {
+            @if (!isIngredientsValid()) {
               <p class="empty-msg">
-                Nessun ingrediente presente
+                Inserisci almeno 3 ingredienti
               </p>
             }
 
@@ -70,7 +75,6 @@
 
         </div>
 
-        <!-- SUBMIT -->
         <div class="actions">
           <button mat-raised-button
                   color="primary"
