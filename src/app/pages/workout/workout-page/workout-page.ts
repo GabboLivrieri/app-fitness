@@ -6,6 +6,8 @@ import { Workout } from '../../../models/workout-model';
 import { CreateWorkout } from "../../../components/workout/create-workout/create-workout";
 import { WorkoutService } from '../../../services/workout-service';
 
+import { Auth } from '../../../auth/auth';
+
 
 import { MaterialModule } from '../../../modules/material-module';
 import { WorkoutCard } from '../../../components/workout/workout-card/workout-card';
@@ -31,7 +33,8 @@ export class WorkoutPage implements OnInit {
     constructor (
       private workoutservice: WorkoutService,
       private dialog: MatDialog,
-      private router: Router, 
+      private router: Router,
+      private auth: Auth, 
       private cdr: ChangeDetectorRef
     ) {}
 
@@ -40,8 +43,9 @@ export class WorkoutPage implements OnInit {
   }
    
   loadWorkouts() {
-    this.workouts$ = this.workoutservice.getAll()
-  };
+    const userId = this.auth.getUserId()!;
+    this.workouts$ = this.workoutservice.getByUserId(userId);  
+  }
   
 
   openCreateWorkouts() {
