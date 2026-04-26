@@ -12,9 +12,9 @@
   </section>
 
   <section class="profile-section">
-
     <div class="profile-layout">
 
+      <!-- SINISTRA -->
       <div class="profile-left">
         @if (!editMode) {
           <div class="profile-card">
@@ -29,12 +29,7 @@
               <span>Abbonamento</span>
               <div class="subscription-inline">
                 @if (user.subscription === 'PREMIUM') {
-                  <button 
-                  mat-button 
-                  color="warn" 
-                  (click)="deleteSubscription()"
-                  matTooltip="Disdici abbonamento"
-                  matTooltipPosition="above">
+                  <button mat-button color="warn" (click)="deleteSubscription()" matTooltip="Disdici abbonamento" matTooltipPosition="above">
                     <mat-icon>cancel</mat-icon>
                   </button>
                 }
@@ -70,35 +65,28 @@
         }
       </div>
 
-      <div class="profile-right">
+      <!-- CENTRO -->
+      <div class="profile-center">
 
         <div class="stats-container">
-
           <h2>Statistiche calorie mensili</h2>
-
           <div class="chart-wrapper">
-
             <div class="chart-column">
               <div class="bar inc" [style.height.%]="monthlyCaloriesStats.hIn">
                 <span class="val">{{ monthlyCaloriesStats.caloriesIn }}</span>
               </div>
               <span class="lbl">Calorie assunte</span>
             </div>
-
             <div class="chart-column">
               <div class="bar exp" [style.height.%]="monthlyCaloriesStats.hOut">
                 <span class="val">{{ monthlyCaloriesStats.caloriesOut }}</span>
               </div>
               <span class="lbl">Calorie bruciate</span>
             </div>
-
           </div>
-
         </div>
 
-        
         <div class="goals-section">
-
           <div class="goals-header">
             <h2>Obiettivi</h2>
             <button mat-raised-button color="primary" (click)="showNewGoal = !showNewGoal">
@@ -113,27 +101,15 @@
                 <mat-label>Titolo</mat-label>
                 <input matInput [(ngModel)]="newGoal.title">
               </mat-form-field>
-
               <mat-form-field appearance="outline">
                 <mat-label>Descrizione</mat-label>
                 <textarea matInput [(ngModel)]="newGoal.description" rows="2"></textarea>
               </mat-form-field>
-
               <mat-form-field appearance="outline">
                 <mat-label>Scadenza</mat-label>
-
-                <input
-                  matInput
-                  [matDatepicker]="picker"
-                  [(ngModel)]="newGoal.deadline"
-                  [min]="minDate"
-                  readonly
-                  (click)="picker.open()"
-                >
-
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newGoal.deadline" [min]="minDate" readonly (click)="picker.open()">
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-
               <mat-form-field appearance="outline">
                 <mat-label>Categoria</mat-label>
                 <mat-select [(ngModel)]="newGoal.category">
@@ -142,7 +118,6 @@
                   <mat-option value="ALIMENTAZIONE">Alimentazione</mat-option>
                 </mat-select>
               </mat-form-field>
-
               <button mat-raised-button color="primary" (click)="addGoal()" [disabled]="!newGoal.title">
                 Aggiungi
               </button>
@@ -176,7 +151,7 @@
 
           @if (completedGoals.length > 0) {
             <h3 class="completed-title">Completati</h3>
-            <div class="goal-list completed">
+            <div class="goal-list">
               @for (goal of completedGoals; track goal.id) {
                 <div class="goal-item completed-item">
                   <mat-icon class="check-icon">check_circle</mat-icon>
@@ -196,9 +171,49 @@
           }
 
         </div>
-    </div>
-    </div>
 
+      </div>
+
+      <!-- DESTRA: solo le due activity card -->
+      <div class="profile-right">
+
+        @if (lastWorkout) {
+          <div class="activity-card" (click)="router.navigate(['/workouts', lastWorkout.id])">
+            <div class="activity-icon workout">
+              <mat-icon>fitness_center</mat-icon>
+            </div>
+            <div class="activity-content">
+              <span class="activity-label">Ultimo workout</span>
+              <span class="activity-title">{{ lastWorkout.name }}</span>
+              <div class="activity-meta">
+                <span> {{ lastWorkout.totalCaloriesBurned }} kcal</span>
+                <span>{{ lastWorkout.exercises.length }} esercizi</span>
+              </div>
+            </div>
+            <mat-icon class="activity-arrow">chevron_right</mat-icon>
+          </div>
+        }
+
+        @if (lastMeal) {
+          <div class="activity-card" (click)="router.navigate(['/meals', lastMeal.id])">
+            <div class="activity-icon meal">
+              <mat-icon>restaurant</mat-icon>
+            </div>
+            <div class="activity-content">
+              <span class="activity-label">Ultimo pasto</span>
+              <span class="activity-title">{{ lastMeal.name }}</span>
+              <div class="activity-meta">
+                <span> {{ lastMeal.totalCalories }} kcal</span>
+                <span>{{ lastMeal.ingredients.length }} ingredienti</span>
+              </div>
+            </div>
+            <mat-icon class="activity-arrow">chevron_right</mat-icon>
+          </div>
+        }
+
+      </div>
+
+    </div>
   </section>
 
 }

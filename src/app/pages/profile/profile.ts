@@ -12,6 +12,7 @@ import { Meal } from '../../models/meal-model';
 import { MealService } from '../../services/meal-service';
 import { Workout } from '../../models/workout-model';
 import { WorkoutService } from '../../services/workout-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,6 @@ export class Profile implements OnInit {
   loading = true;
   editMode = false;
 
- 
   goals: Goal[] = [];
   completedGoals: Goal[] = [];
   showNewGoal = false;
@@ -43,7 +43,8 @@ export class Profile implements OnInit {
     private goalService: GoalService,
     private dialog: MatDialog,
     private mealService: MealService,
-    private workoutService: WorkoutService
+    private workoutService: WorkoutService,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -59,15 +60,15 @@ export class Profile implements OnInit {
       error: () => { this.loading = false; }
     });
 
-     this.mealService.getByUserId(userId).subscribe(res => {
-        this.meals = res;
-        this.cdr.detectChanges();
-      });
+    this.mealService.getByUserId(userId).subscribe(res => {
+      this.meals = res;
+      this.cdr.detectChanges();
+    });
 
-      this.workoutService.getByUserId(userId).subscribe(res => {
-        this.workouts = res;
-        this.cdr.detectChanges();
-      });
+    this.workoutService.getByUserId(userId).subscribe(res => {
+      this.workouts = res;
+      this.cdr.detectChanges();
+    });
 
     this.loadGoals();
   }
@@ -81,6 +82,16 @@ export class Profile implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  get lastWorkout(): Workout | null {
+    if (!this.workouts.length) return null;
+    return [...this.workouts].sort((a, b) => b.createdAt - a.createdAt)[0];
+  }
+
+  get lastMeal(): Meal | null {
+    if (!this.meals.length) return null;
+    return [...this.meals].sort((a, b) => b.createdAt - a.createdAt)[0];
   }
 
   addGoal(): void {
@@ -118,8 +129,8 @@ export class Profile implements OnInit {
   toggleEdit() { this.editMode = !this.editMode; }
 
   save() {
-    this.userService.update(this.user).subscribe(() => { 
-      this.editMode = false; 
+    this.userService.update(this.user).subscribe(() => {
+      this.editMode = false;
       this.cdr.detectChanges();
     });
   }
@@ -143,7 +154,6 @@ export class Profile implements OnInit {
         this.userService.cancelSubscription(this.user.id)
           .subscribe(updatedUser => {
             this.user.subscription = updatedUser.subscription;
-
             this.cdr.detectChanges();
           });
       }
@@ -156,31 +166,23 @@ export class Profile implements OnInit {
     }
 
     const today = new Date();
-    const m = today.getMonth();
-    const y = today.getFullYear();
 
-    // MEALS del mese per user
     const mealsMonth = this.meals.filter(m => {
       const d = new Date(m.createdAt);
       return m.userId === this.user.id &&
-            d.getMonth() === today.getMonth() &&
-            d.getFullYear() === today.getFullYear();
+        d.getMonth() === today.getMonth() &&
+        d.getFullYear() === today.getFullYear();
     });
 
-    // WORKOUT del mese per user
     const workoutsMonth = this.workouts.filter(w => {
       const d = new Date(w.createdAt);
       return w.userId === this.user.id &&
-            d.getMonth() === today.getMonth() &&
-            d.getFullYear() === today.getFullYear();
+        d.getMonth() === today.getMonth() &&
+        d.getFullYear() === today.getFullYear();
     });
 
-    const caloriesIn = mealsMonth
-      .reduce((sum, m) => sum + (m.totalCalories || 0), 0);
-
-    const caloriesOut = workoutsMonth
-      .reduce((sum, w) => sum + (w.totalCaloriesBurned || 0), 0);
-
+    const caloriesIn = mealsMonth.reduce((sum, m) => sum + (m.totalCalories || 0), 0);
+    const caloriesOut = workoutsMonth.reduce((sum, w) => sum + (w.totalCaloriesBurned || 0), 0);
     const max = Math.max(caloriesIn, caloriesOut, 1);
 
     return {
