@@ -4,16 +4,31 @@
 
     <mat-card-header>
       <mat-card-title>
-        {{ meal.name | capitalize }}
+        <strong>{{ meal.name | capitalize }}</strong>
       </mat-card-title>
-    </mat-card-header>
+    </mat-card-header> 
+
+    <hr>
 
     <mat-card-content>
-      <p>Calorie totali: {{ meal.totalCalories | calories }}</p>
-      <p>Numero ingredienti: {{ meal.ingredients.length }}</p>
-      <p>Creato il: {{ meal.createdAt | createdAtFormat }}</p>
-    </mat-card-content>
+      <div class="meal-info">
+        <div class="info-row">
+          <strong>Calorie totali:</strong>
+          <span>{{ meal.totalCalories | calories }}</span>
+        </div>
 
+        <div class="info-row">
+          <strong>Numero ingredienti:</strong>
+          <span>{{ meal.ingredients.length }}</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Creato il:</strong>
+          <span>{{ meal.createdAt | createdAtFormat }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+ 
     <mat-card-actions>
 
       <button mat-button color="primary" (click)="onDetail()">

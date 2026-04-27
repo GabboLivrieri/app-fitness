@@ -77,7 +77,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTreeModule,
   ],
   declarations: [],
-  exports: [MatAutocompleteModule,
+  exports: [
+    CommonModule,
+    MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
     MatButtonModule,

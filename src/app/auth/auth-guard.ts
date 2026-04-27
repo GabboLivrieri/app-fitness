@@ -1,11 +1,10 @@
-import { CanActivateFn, CanActivateChildFn, Router } from '@angular/router';
+import { CanActivateFn, CanActivateChildFn } from '@angular/router';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Auth } from './auth';
 
 const checkAuth = (): boolean => {
   const auth = inject(Auth);
-  const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
 
   const tokenInMemory = auth.getToken();
@@ -17,7 +16,6 @@ const checkAuth = (): boolean => {
     return true;
   }
 
-  router.navigate(['/home']);
   return false;
 };
 

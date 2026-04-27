@@ -1,0 +1,36 @@
+.meal-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+mat-card-header {
+  background-color: #0d1b2a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+mat-card-title {
+  color: #fff;
+  margin: 0;
+  text-align: center;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-row + .info-row {
+  margin-top: 12px;
+}
+
+.info-row strong,
+.info-row span {
+  margin: 0;
+}
+
+
