@@ -35,7 +35,7 @@
         <mat-card class="meal-card">
           <img mat-card-image [src]="meal.strMealThumb">
           <mat-card-header>
-            <mat-card-title>{{ meal.strMeal | capitalize }}</mat-card-title>
+            <mat-card-title><strong>{{ meal.strMeal | capitalize }}</strong></mat-card-title>
             <mat-card-subtitle>{{ meal.strCategory }} • {{ meal.strArea }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
